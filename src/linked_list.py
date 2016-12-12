@@ -26,3 +26,15 @@ class LinkedList(object):
         new_head = Node(data)
         new_head.update_next(self.head)
         self.head = new_head
+
+    def pop(self):
+        """Remove the first value off the head of the list and return it."""
+        pass
+
+    def size(self, node):
+        """Count the objects in linked list."""
+        count = 0
+        while node:
+            count += 1
+            node = node.next_item
+        return count
