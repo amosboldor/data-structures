@@ -52,3 +52,14 @@ class LinkedList(object):
         else:
             result = curr
         return result
+
+    def remove(self, node):
+        """Remove a given node in the list."""
+        curr = self.head
+        next_node = curr.next_item
+        while curr:
+            if next_item == node:
+                self.head = next_node.next_item
+            curr = curr.next_item
+            next_node = curr.next_item
+
