@@ -10,13 +10,26 @@ LIST_DATA = [
     [{}]
 ]
 
+DATA = [
+    [1, 1],
+    [[1, 2, 3], 3],
+    ['string', 'g']
+]
+
 
 @pytest.mark.parametrize("n", LIST_DATA)
-def test_initiate_linkedlist(n):
-    """Test if attributes in linked list match what is expected."""
+def test_initiate_node(n):
+    """Test if attributes in node class match what is expected."""
     from linked_list import Node
-    example = Node(n)
-    assert example.data == n
+    assert Node(n).data == n
+
+
+@pytest.mark.parametrize("n, result", DATA)
+def test_initiate_linkedlist(n, result):
+    """Test if linked list is initiated for iterable or not."""
+    from linked_list import LinkedList
+    linked_list = LinkedList(n)
+    assert linked_list.head.data == result
 
 
 @pytest.mark.parametrize("n", LIST_DATA)
@@ -60,38 +73,29 @@ def test_search():
 
 
 def test_remove_tail():
-    """Test if remove method removes node from linked list."""
+    """Test if remove method removes last node from linked list."""
     from linked_list import LinkedList
-    from linked_list import Node
-    node3 = Node('3')
-    node2 = Node('2', node3)
-    node1 = Node('1', node2)
-    linked_list = LinkedList(node1)
-    linked_list.remove(node3)
+    linked_list = LinkedList([1, 2, 3])
+    to_remove = linked_list.search(2)
+    linked_list.remove(to_remove)
     assert linked_list.size() == 2
 
 
 def test_remove_middle():
-    """Test if remove method removes node from linked list."""
+    """Test if remove method removes middle node from linked list."""
     from linked_list import LinkedList
-    from linked_list import Node
-    node3 = Node('3')
-    node2 = Node('2', node3)
-    node1 = Node('1', node2)
-    linked_list = LinkedList(node1)
-    linked_list.remove(node2)
+    linked_list = LinkedList([1, 2, 3])
+    to_remove = linked_list.search(2)
+    linked_list.remove(to_remove)
     assert linked_list.size() == 2
 
 
 def test_remove_middle_head():
-    """Test if remove method removes node from linked list."""
+    """Test if remove method removes head node from linked list."""
     from linked_list import LinkedList
-    from linked_list import Node
-    node3 = Node('3')
-    node2 = Node('2', node3)
-    node1 = Node('1', node2)
-    linked_list = LinkedList(node1)
-    linked_list.remove(node1)
+    linked_list = LinkedList([1, 2, 3])
+    to_remove = linked_list.search(2)
+    linked_list.remove(to_remove)
     assert linked_list.size() == 2
 
 
