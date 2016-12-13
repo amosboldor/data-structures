@@ -34,7 +34,6 @@ class LinkedList(object):
         self.head = new_head
         return old_head
 
-
     def size(self):
         """Count the objects in linked list."""
         count = 0
@@ -46,4 +45,10 @@ class LinkedList(object):
 
     def search(self, val):
         """Iterate through the linked list to find instance containing val."""
-        pass
+        curr = self.head
+        result = None
+        while val != curr.data:
+            curr = curr.next_item
+        else:
+            result = curr
+        return result
