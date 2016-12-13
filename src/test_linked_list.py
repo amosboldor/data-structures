@@ -93,3 +93,13 @@ def test_remove_middle_head():
     linked_list = LinkedList(node1)
     linked_list.remove(node1)
     assert linked_list.size() == 2
+
+
+def test_display():
+    """Test of display returns data from linked list."""
+    from linked_list import LinkedList
+    linked_list = LinkedList()
+    linked_list.push('1')
+    linked_list.push('2')
+    linked_list.push('3')
+    assert linked_list.display() == '(3, 2, 1)'
