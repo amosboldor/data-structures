@@ -47,3 +47,13 @@ def test_pop():
     linked_list.push('3')
     popped_item = linked_list.pop()
     assert popped_item == '3'
+
+
+def test_search():
+    """Test search method if finds a value in linked_list."""
+    from linked_list import LinkedList
+    linked_list = LinkedList()
+    linked_list.push('1')
+    linked_list.push('2')
+    linked_list.push('3')
+    assert linked_list.search('2').data == '2'
