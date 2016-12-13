@@ -29,12 +29,21 @@ class LinkedList(object):
 
     def pop(self):
         """Remove the first value off the head of the list and return it."""
-        pass
+        new_head = self.head.next_item
+        old_head = self.head.data
+        self.head = new_head
+        return old_head
 
-    def size(self, node):
+
+    def size(self):
         """Count the objects in linked list."""
         count = 0
-        while node:
+        curr = self.head
+        while curr:
             count += 1
-            node = node.next_item
+            curr = curr.next_item
         return count
+
+    def search(self, val):
+        """Iterate through the linked list to find instance containing val."""
+        pass
