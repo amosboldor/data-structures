@@ -31,9 +31,8 @@ def test_push(n):
 def test_size():
     """Test if size returns the number of objects in list."""
     from linked_list import LinkedList
-    from linked_list import Node
-    node1 = Node('1')
-    node2 = Node('2', node1)
-    node3 = Node('3', node2)
-    linked_list = LinkedList(node1)
-    assert linked_list.size(node3) == 3
+    linked_list = LinkedList()
+    linked_list.push('1')
+    linked_list.push('2')
+    linked_list.push('3')
+    assert linked_list.size() == 3
