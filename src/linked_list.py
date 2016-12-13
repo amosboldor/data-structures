@@ -9,10 +9,6 @@ class Node(object):
         self.data = data
         self.next_item = next_item
 
-    def update_next(self, new_node):
-        """Update the next item in linked list."""
-        self.next_item = new_node
-
 
 class LinkedList(object):
     """Class for head of Linked List."""
@@ -33,7 +29,7 @@ class LinkedList(object):
     def push(self, data=None):
         """Create new node in front of head."""
         new_head = Node(data)
-        new_head.update_next(self.head)
+        new_head.next_item = self.head
         self.head = new_head
 
     def pop(self):
