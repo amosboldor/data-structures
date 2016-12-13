@@ -4,7 +4,7 @@
 class Node(object):
     """docstring for LinkedList."""
 
-    def __init__(self, data=None, next_item=None):
+    def __init__(self, data, next_item=None):
         """Init for instance of a node."""
         self.data = data
         self.next_item = next_item
@@ -17,9 +17,18 @@ class Node(object):
 class LinkedList(object):
     """Class for head of Linked List."""
 
-    def __init__(self, head=None):
+    def __init__(self, data=None):
         """Initialize the head node."""
-        self.head = head
+        self.head = None
+        if data:
+            try:
+                for item in data:
+                    if item is data[0]:
+                        self.head = Node(item)
+                    else:
+                        self.head = Node(item, self.head)
+            except TypeError:
+                self.head = Node(data)
 
     def push(self, data=None):
         """Create new node in front of head."""
