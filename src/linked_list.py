@@ -66,3 +66,12 @@ class LinkedList(object):
             self.head = curr.next_item
         else:
             previous.next_item = curr.next_item
+
+    def display(self):
+        """Return a string of the linked list."""
+        return_tuple = '('
+        curr = self.head
+        while curr:
+            return_tuple = return_tuple + str(curr.data) + ', '
+            curr = curr.next_item
+        return return_tuple[:-2] + ')'
