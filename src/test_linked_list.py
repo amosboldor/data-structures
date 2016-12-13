@@ -59,7 +59,7 @@ def test_search():
     assert linked_list.search('2').data == '2'
 
 
-def test_remove():
+def test_remove_tail():
     """Test if remove method removes node from linked list."""
     from linked_list import LinkedList
     from linked_list import Node
@@ -68,4 +68,28 @@ def test_remove():
     node1 = Node('1', node2)
     linked_list = LinkedList(node1)
     linked_list.remove(node3)
+    assert linked_list.size() == 2
+
+
+def test_remove_middle():
+    """Test if remove method removes node from linked list."""
+    from linked_list import LinkedList
+    from linked_list import Node
+    node3 = Node('3')
+    node2 = Node('2', node3)
+    node1 = Node('1', node2)
+    linked_list = LinkedList(node1)
+    linked_list.remove(node2)
+    assert linked_list.size() == 2
+
+
+def test_remove_middle_head():
+    """Test if remove method removes node from linked list."""
+    from linked_list import LinkedList
+    from linked_list import Node
+    node3 = Node('3')
+    node2 = Node('2', node3)
+    node1 = Node('1', node2)
+    linked_list = LinkedList(node1)
+    linked_list.remove(node1)
     assert linked_list.size() == 2
