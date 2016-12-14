@@ -45,3 +45,13 @@ class DoubleLinkedList(object):
             self.tail.next_item = new_node
         self.tail = new_node
         self.size += 1
+
+    def pop(self):
+        """Pop the first value off the head of the list and return it."""
+        if self.head is None:
+            raise IndexError('Cannot pop from an empty list.')
+        new_head = self.head.next_item
+        old_head = self.head.data
+        self.head = new_head
+        self.head.prev_item = None
+        return old_head
