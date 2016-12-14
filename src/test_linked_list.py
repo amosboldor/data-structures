@@ -93,7 +93,7 @@ def test_remove_tail():
     """Test if remove method removes last node from linked list."""
     from linked_list import LinkedList
     linked_list = LinkedList([1, 2, 3])
-    to_remove = linked_list.search(2)
+    to_remove = linked_list.search(1)
     linked_list.remove(to_remove)
     assert linked_list.size() == 2
 
@@ -111,7 +111,7 @@ def test_remove_middle_head():
     """Test if remove method removes head node from linked list."""
     from linked_list import LinkedList
     linked_list = LinkedList([1, 2, 3])
-    to_remove = linked_list.search(2)
+    to_remove = linked_list.search(3)
     linked_list.remove(to_remove)
     assert linked_list.size() == 2
 
