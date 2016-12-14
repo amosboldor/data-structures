@@ -50,10 +50,13 @@ class LinkedList(object):
         """Iterate through the linked list to find instance containing val."""
         curr = self.head
         result = None
-        while val != curr.data:
-            curr = curr.next_item
-        else:
-            result = curr
+        try:
+            while val != curr.data:
+                curr = curr.next_item
+            else:
+                result = curr
+        except AttributeError:
+            pass
         return result
 
     def remove(self, node):
