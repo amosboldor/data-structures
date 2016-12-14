@@ -136,3 +136,26 @@ def test_when_pop_new_head_is_old_head_next(new_list):
     old_head = new_list.head.next_item
     new_list.pop()
     assert new_list.head == old_head
+
+
+def test_when_shift_on_empty_list_raise_indexerr(new_list):
+    """When I shift from empty list, raise IndexError."""
+    with pytest.raises(IndexError, message="Cannot shift from an empty list."):
+        new_list.shift()
+
+
+def test_when_shift_returns_data(new_list):
+    """When I shift from list return that data."""
+    new_list.append(1)
+    new_list.append(2)
+    new_list.append(3)
+    assert new_list.shift() == 3
+
+
+def test_when_shift_new_tail_is_old_tail_prev(new_list):
+    """When I shift new tail is old tail prev."""
+    new_list.push(1)
+    new_list.push(2)
+    old_tail = new_list.tail.prev_item
+    new_list.shift()
+    assert new_list.tail == old_tail
