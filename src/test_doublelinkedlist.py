@@ -2,6 +2,13 @@
 
 import pytest
 
+ITER_TABLE = [
+    [[1, 2, 3]],
+    ["Hello"],
+    [("a", "b", "c")],
+    [{"one": 1, "two": 2}]
+]
+
 
 @pytest.fixture
 def new_list():
@@ -47,3 +54,40 @@ def test_when_push_list_size_grows(new_list):
     """When I push to my list, the size of the list grows."""
     new_list.push(5)
     assert new_list.size == 1
+
+
+def test_new_list_has_zero_size(new_list):
+    """When I make a new linked list its size is zero."""
+    assert new_list.size == 0
+
+
+def test_when_push_new_head_points_to_old_head(new_list):
+    """When I push, my new head's next points to the old head."""
+    new_list.push(1)
+    old = new_list.head
+    new_list.push(2)
+    assert new_list.head.next_item is old
+
+
+def test_when_push_old_head_prev_item_is_new_head(new_list):
+    """When I push, my old heads prev points to the new head."""
+    new_list.push(1)
+    old = new_list.head
+    new_list.push(2)
+    assert old.prev_item is new_list.head
+
+
+@pytest.mark.parametrize("my_iter", ITER_TABLE)
+def test_when_initialize_with_iterable_makes_nodes(my_iter):
+    """When I pass an iterable on initialization I make nodes out of it."""
+    from doublelinkedlist import DoubleLinkedList
+    dll = DoubleLinkedList(my_iter)
+    assert dll.size == len(my_iter)
+
+
+def test_when_initialize_with_single_value_size_is_1():
+    """Test when double linked list is initialised it creates one node."""
+    from doublelinkedlist import DoubleLinkedList
+    dll = DoubleLinkedList(1)
+    assert dll.size == 1
+    assert dll.head == dll.tail
