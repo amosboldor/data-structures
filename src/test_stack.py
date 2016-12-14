@@ -1,5 +1,15 @@
 """Tests for stack module."""
 
+import pytest
+
+
+@pytest.fixture
+def new_stack():
+    """Define new instance of Stack class."""
+    from stack import Stack
+    this_stack = Stack()
+    return this_stack
+
 
 def test_stack():
     """Test the stack class to see if it created LinkedList."""
@@ -23,3 +33,9 @@ def test_stack_push_new_to_old():
     old = stack_obj.container.head
     stack_obj.push(2)
     assert stack_obj.container.head.next_item == old
+
+
+def test_when_pop_on_empty_list_raise_indexerr(new_stack):
+    """When I pop from empty list, raise IndexError."""
+    with pytest.raises(IndexError, message="Cannot pop from an empty list."):
+        new_stack.pop()
