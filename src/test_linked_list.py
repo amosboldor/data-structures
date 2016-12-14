@@ -17,6 +17,14 @@ DATA = [
 ]
 
 
+@pytest.fixture
+def new_list():
+    """Define new instance of LinkedList class."""
+    from linked_list import LinkedList
+    this_list = LinkedList()
+    return this_list
+
+
 @pytest.mark.parametrize("n", LIST_DATA)
 def test_initiate_node(n):
     """Test if attributes in node class match what is expected."""
@@ -116,3 +124,9 @@ def test_display():
     linked_list.push('2')
     linked_list.push('3')
     assert linked_list.display() == '(3, 2, 1)'
+
+
+def test_when_pop_on_empty_list_raise_indexerr(new_list):
+    """When I pop from empty list, raise IndexError."""
+    with pytest.raises(IndexError, message="Cannot pop from an empty list."):
+        new_list.pop()
