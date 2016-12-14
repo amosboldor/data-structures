@@ -27,11 +27,21 @@ class DoubleLinkedList(object):
                 self.push(data)
 
     def push(self, val):
-        """Push a node in initialized Double Linked List."""
+        """Push a node to the head of the DoubleLinkedList."""
         new_node = Node(val, next_item=self.head)
         if self.size < 1:
             self.tail = new_node
         else:
             self.head.prev_item = new_node
         self.head = new_node
+        self.size += 1
+
+    def append(self, val):
+        """Append a node to the tail of the DoubleLinkedList."""
+        new_node = Node(val, prev_item=self.tail)
+        if self.size < 1:
+            self.head = new_node
+        else:
+            self.tail.next_item = new_node
+        self.tail = new_node
         self.size += 1

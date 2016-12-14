@@ -91,3 +91,25 @@ def test_when_initialize_with_single_value_size_is_1():
     dll = DoubleLinkedList(1)
     assert dll.size == 1
     assert dll.head == dll.tail
+
+
+def test_when_append_list_size_grows(new_list):
+    """When I append to my list, the size of the list grows."""
+    new_list.append(5)
+    assert new_list.size == 1
+
+
+def test_when_append_new_tail_points_to_old_tail(new_list):
+    """When I append, my new tail's next points to the old tail."""
+    new_list.append(1)
+    old = new_list.tail
+    new_list.append(2)
+    assert new_list.tail.prev_item is old
+
+
+def test_when_append_old_tail_next_item_is_new_tail(new_list):
+    """When I append, my old tails next points to the new tail."""
+    new_list.append(1)
+    old = new_list.tail
+    new_list.append(2)
+    assert old.next_item is new_list.tail
