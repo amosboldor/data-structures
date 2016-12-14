@@ -54,4 +54,5 @@ class DoubleLinkedList(object):
         old_head = self.head.data
         self.head = new_head
         self.head.prev_item = None
+        self.size -= 1
         return old_head
