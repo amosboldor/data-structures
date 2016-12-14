@@ -10,7 +10,7 @@ setup(
     author=["Claire Gatenby", "Amos Boldor"],
     licencse="MIT",
     package_dir={'': 'src'},
-    py_modules=["linked_list"],
+    py_modules=["linked_list", "stack", "doublelinkedlist"],
     extras_require={
         "test": ["pytest", "pytest-cov", "tox"]
     }
