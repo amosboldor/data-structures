@@ -24,7 +24,7 @@ class DoubleLinkedList(object):
                 for item in data:
                     self.push(item)
             except TypeError:
-                self.head = Node(data)
+                self.push(data)
 
     def push(self, val):
         """Push a node in initialized Double Linked List."""
