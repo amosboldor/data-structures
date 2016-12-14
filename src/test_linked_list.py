@@ -17,6 +17,14 @@ DATA = [
 ]
 
 
+@pytest.fixture
+def new_list():
+    """Define new instance of LinkedList class."""
+    from linked_list import LinkedList
+    this_list = LinkedList()
+    return this_list
+
+
 @pytest.mark.parametrize("n", LIST_DATA)
 def test_initiate_node(n):
     """Test if attributes in node class match what is expected."""
@@ -39,6 +47,15 @@ def test_push(n):
     linked_list = LinkedList()
     linked_list.push(n)
     assert linked_list.head.data == n
+
+
+def test_linked_list_push_new_to_old():
+    """Test linked list push data new head should point to the old head."""
+    from linked_list import LinkedList
+    linked_list = LinkedList(1)
+    old = linked_list.head
+    linked_list.push(2)
+    assert linked_list.head.next_item == old
 
 
 def test_size():
@@ -76,7 +93,7 @@ def test_remove_tail():
     """Test if remove method removes last node from linked list."""
     from linked_list import LinkedList
     linked_list = LinkedList([1, 2, 3])
-    to_remove = linked_list.search(2)
+    to_remove = linked_list.search(1)
     linked_list.remove(to_remove)
     assert linked_list.size() == 2
 
@@ -94,7 +111,7 @@ def test_remove_middle_head():
     """Test if remove method removes head node from linked list."""
     from linked_list import LinkedList
     linked_list = LinkedList([1, 2, 3])
-    to_remove = linked_list.search(2)
+    to_remove = linked_list.search(3)
     linked_list.remove(to_remove)
     assert linked_list.size() == 2
 
@@ -107,3 +124,9 @@ def test_display():
     linked_list.push('2')
     linked_list.push('3')
     assert linked_list.display() == '(3, 2, 1)'
+
+
+def test_when_pop_on_empty_list_raise_indexerr(new_list):
+    """When I pop from empty list, raise IndexError."""
+    with pytest.raises(IndexError, message="Cannot pop from an empty list."):
+        new_list.pop()
