@@ -24,7 +24,7 @@ class LinkedList(object):
     it might be (node must be an item in the list)
 
     display() will return a unicode string representing the list as
-    if it were a Python tuple literal: “(12, ‘sam’, 37, ‘tango’)”
+    if it were a Python tuple literal: (12, 'sam', 37, 'tango')
     """
 
     def __init__(self, data=None):
