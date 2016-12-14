@@ -76,10 +76,24 @@ class DoubleLinkedList(object):
     def shift(self):
         """Take the first value off the tail of the list and return it."""
         if self.tail is None:
-            raise IndexError('Cannot pop from an empty list.')
+            raise IndexError('Cannot shift from an empty list.')
         new_tail = self.tail.prev_item
         old_tail = self.tail.data
         self.tail = new_tail
         self.tail.next_item = None
         self.size -= 1
         return old_tail
+
+    def remove(self, node):
+        """Remove a given node in the list."""
+        curr = self.head
+        previous = None
+        while curr:
+            if curr == node:
+                break
+            previous = curr
+            curr = previous.next_item
+        if previous is None:
+            self.head = curr.next_item
+        else:
+            previous.next_item = curr.next_item
