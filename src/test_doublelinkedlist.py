@@ -9,6 +9,12 @@ ITER_TABLE = [
     [{"one": 1, "two": 2}]
 ]
 
+REMOVE_TABLE = [
+    1,
+    2,
+    3
+]
+
 
 @pytest.fixture
 def new_list():
@@ -159,3 +165,21 @@ def test_when_shift_new_tail_is_old_tail_prev(new_list):
     old_tail = new_list.tail.prev_item
     new_list.shift()
     assert new_list.tail == old_tail
+
+
+@pytest.mark.parametrize("remove", REMOVE_TABLE)
+def test_when_remove_item_in_middle_head_tail(remove):
+    """Test if remove method removes middle node from linked list."""
+    from doublelinkedlist import DoubleLinkedList
+    dll = DoubleLinkedList([1, 2, 3])
+    dll.remove(remove)
+    assert dll.size == 2
+
+
+def test_when_remove_does_not_find_val(new_list):
+    """Test that remove will raise error if doesn't find val."""
+    new_list.push(2)
+    new_list.push(3)
+    new_list.push(4)
+    with pytest.raises(ValueError, message="list.remove(x): x not in list."):
+        new_list.remove(5)

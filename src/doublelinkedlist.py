@@ -84,21 +84,26 @@ class DoubleLinkedList(object):
         self.size -= 1
         return old_tail
 
-    def remove(self, node):
-        """Remove a given node in the list."""
-        curr = self.head
-        while curr:
-            if curr == node:
-                break
-            curr = curr.next_item
-        else:
+    def remove(self, val):
+        """Remove a given val in the list."""
+        curr = self.head.data
+        curr_node = self.head
+        try:
+            while curr:
+                if curr == val:
+                    break
+                else:
+                    curr = curr_node.next_item.data
+                    curr_node = curr_node.next_item
+        except:
             raise ValueError('list.remove(x): x not in list.')
-        if curr is self.head:
-            self.head = curr.next_item
-            curr.prev_item = None
-        elif curr is self.tail:
+        if curr is self.head.data:
+            self.head = self.head.next_item
+            self.head.prev_item = None
+        elif curr is self.tail.data:
             self.tail = self.tail.prev_item
-            curr.next_item = None
+            self.tail.next_item = None
         else:
-            curr.prev_item.next_item = curr.next_item
-            curr.next_item.prev_item = curr.prev_item
+            curr_node.prev_item.next_item = curr_node.next_item
+            curr_node.next_item.prev_item = curr_node.prev_item
+        self.size -= 1
