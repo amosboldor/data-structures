@@ -8,12 +8,12 @@ class Stack(object):
 
     def __init__(self, data=None):
         """Initialize stack class."""
-        self.container = LinkedList(data)
+        self._container = LinkedList(data)
 
     def push(self, value):
         """Add a value to the stack."""
-        self.container.push(value)
+        return self._container.push(value)
 
     def pop(self):
         """Remove a value from the stack and returns that value."""
-        return self.container.pop()
+        return self._container.pop()
