@@ -28,7 +28,7 @@ Our stack implementation supports the following methods:
 - **pop()** - Removes a value from the stack and returns that value. If the stack is empty, attempts to call pop should raise an appropriate Python exception class.
 
 
-**Double linked list**
+##Double linked list
 - **Module:** doublelinkedlist.py
 - **Tests:** test_doublelinkedlist.py
 - **Resources Used** https://en.wikipedia.org/wiki/Doubly_linked_list
@@ -43,7 +43,7 @@ Our double linked list implementation supports the following methods:
 
 
 #Testing Coverage:
-
+```
 ================ 51 passed in 0.19 seconds ===============
 
 ---------- coverage: platform darwin, python 2.7.11-final-0 ----------
@@ -70,3 +70,4 @@ src/test_linked_list.py           75      0   100%
 src/test_stack.py                 29      0   100%
 ------------------------------------------------------------
 TOTAL                            338      0   100%
+```
