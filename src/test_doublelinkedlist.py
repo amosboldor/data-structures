@@ -113,3 +113,26 @@ def test_when_append_old_tail_next_item_is_new_tail(new_list):
     old = new_list.tail
     new_list.append(2)
     assert old.next_item is new_list.tail
+
+
+def test_when_pop_on_empty_list_raise_indexerr(new_list):
+    """When I pop from empty list, raise IndexError."""
+    with pytest.raises(IndexError, message="Cannot pop from an empty list."):
+        new_list.pop()
+
+
+def test_when_pop_returns_data(new_list):
+    """When I pop from list return that data."""
+    new_list.append(1)
+    new_list.append(2)
+    new_list.append(3)
+    assert new_list.pop() == 1
+
+
+def test_when_pop_new_head_is_old_head_next(new_list):
+    """When I pop new head is old head next."""
+    new_list.push(1)
+    new_list.push(2)
+    old_head = new_list.head.next_item
+    new_list.pop()
+    assert new_list.head == old_head
