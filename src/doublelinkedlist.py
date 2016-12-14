@@ -97,3 +97,4 @@ class DoubleLinkedList(object):
             self.head = curr.next_item
         else:
             previous.next_item = curr.next_item
+ 
