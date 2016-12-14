@@ -2,7 +2,7 @@
 
 
 class Node(object):
-    """docstring for LinkedList."""
+    """Inistantiate a new data node with point to next item."""
 
     def __init__(self, data, next_item=None):
         """Init for instance of a node."""
