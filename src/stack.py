@@ -16,4 +16,4 @@ class Stack(object):
 
     def pop(self):
         """Remove a value from the stack and returns that value."""
-        self.container.pop()
+        return self.container.pop()
