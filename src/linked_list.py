@@ -28,12 +28,13 @@ class LinkedList(object):
 
     def push(self, data=None):
         """Create new node in front of head."""
-        new_head = Node(data)
-        new_head.next_item = self.head
+        new_head = Node(data, self.head)
         self.head = new_head
 
     def pop(self):
         """Remove the first value off the head of the list and return it."""
+        if self.head is None:
+            raise IndexError('Cannot pop from an empty list.')
         new_head = self.head.next_item
         old_head = self.head.data
         self.head = new_head

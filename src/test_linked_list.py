@@ -41,6 +41,15 @@ def test_push(n):
     assert linked_list.head.data == n
 
 
+def test_linked_list_push_new_to_old():
+    """Test linked list push data new head should point to the old head."""
+    from linked_list import LinkedList
+    linked_list = LinkedList(1)
+    old = linked_list.head
+    linked_list.push(2)
+    assert linked_list.head.next_item == old
+
+
 def test_size():
     """Test if size returns the number of objects in list."""
     from linked_list import LinkedList
