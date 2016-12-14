@@ -19,10 +19,7 @@ class LinkedList(object):
         if data:
             try:
                 for item in data:
-                    if item is data[0]:
-                        self.head = Node(item)
-                    else:
-                        self.head = Node(item, self.head)
+                    self.push(item)
             except TypeError:
                 self.head = Node(data)
 
