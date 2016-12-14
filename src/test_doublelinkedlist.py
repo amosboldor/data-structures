@@ -41,3 +41,9 @@ def test_new_doublelist_has_no_head(new_list):
     """A new double linked list is without a head."""
     assert new_list.head is None
     assert new_list.tail is None
+
+
+def test_when_push_list_size_grows(new_list):
+    """When I push to my list, the size of the list grows."""
+    new_list.push(5)
+    assert new_list.size == 1
