@@ -33,4 +33,6 @@ class Queue():
 
     def peek(self):
         """Return the next value in the queue."""
+        if not self._size:
+            return None
         return self._container.head.data
