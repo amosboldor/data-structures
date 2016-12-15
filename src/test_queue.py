@@ -81,3 +81,22 @@ def test_peek_on_empty_queue_returns_none():
     """When peek runs on an empty queue it returns None."""
     from queue import Queue
     assert Queue().peek() is None
+
+
+def test_size_empty_queue():
+    """Test that the size returns 0 if queue has nothing."""
+    from queue import Queue
+    assert Queue().size() == 0
+
+
+def test_size_full_queue(new_queue):
+    """Test that size of queue initialized with length of 5 is 5."""
+    assert new_queue.size() == 5
+
+
+def test_size_full_queue_after_dequeue(new_queue):
+    """Test that size of queue initialized with length of 5 dequeued twice and enqueued once is 4."""
+    new_queue.dequeued()
+    new_queue.dequeued()
+    new_queue.enqueued(3)
+    assert new_queue.size() == 4
