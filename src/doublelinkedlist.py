@@ -95,7 +95,7 @@ class DoubleLinkedList(object):
                 else:
                     curr = curr_node.next_item.data
                     curr_node = curr_node.next_item
-        except:
+        except AttributeError:
             raise ValueError('list.remove(x): x not in list.')
         if curr is self.head.data:
             self.head = self.head.next_item
