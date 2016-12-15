@@ -57,30 +57,37 @@ Our queue implementation supports the following methods:
 
 #Testing Coverage:
 ```
-================ 51 passed in 0.19 seconds ===============
-
----------- coverage: platform darwin, python 2.7.11-final-0 ----------
 Name                           Stmts   Miss  Cover   Missing
 ------------------------------------------------------------
 src/doublelinkedlist.py           68      0   100%
-src/linked_list.py                55      0   100%
+src/linked_list.py                58      0   100%
+src/queue.py                      17      0   100%
 src/stack.py                       8      0   100%
 src/test_doublelinkedlist.py     103      0   100%
-src/test_linked_list.py           75      0   100%
+src/test_linked_list.py           82      0   100%
+src/test_queue.py                 55      0   100%
 src/test_stack.py                 29      0   100%
 ------------------------------------------------------------
-TOTAL                            338      0   100%
+TOTAL                            420      0   100%
+
+
+========================== 66 passed in 0.22 seconds 
 
 
 ---------- coverage: platform darwin, python 3.5.2-final-0 -----------
 Name                           Stmts   Miss  Cover   Missing
 ------------------------------------------------------------
 src/doublelinkedlist.py           68      0   100%
-src/linked_list.py                55      0   100%
+src/linked_list.py                58      0   100%
+src/queue.py                      17      0   100%
 src/stack.py                       8      0   100%
 src/test_doublelinkedlist.py     103      0   100%
-src/test_linked_list.py           75      0   100%
+src/test_linked_list.py           82      0   100%
+src/test_queue.py                 55      0   100%
 src/test_stack.py                 29      0   100%
 ------------------------------------------------------------
-TOTAL                            338      0   100%
+TOTAL                            420      0   100%
+
+
+========================== 66 passed in 0.21 seconds
 ```
