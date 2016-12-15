@@ -41,3 +41,25 @@ def test_when_enqueue_old_tail_next_item_is_new_tail(new_queue):
     old = new_queue._container.tail
     new_queue.enqueue(2)
     assert old.next_item is new_queue._container.tail
+
+
+def test_when_pop_on_empty_list_raise_indexerr():
+    """When I dequeue from empty queue, raise IndexError."""
+    from queue import Queue
+    with pytest.raises(IndexError, message="Cannot pop from an empty list."):
+        Queue().dequeue()
+
+
+def test_when_dequeue_new_head_is_old_head_next(new_queue):
+    """When I dequeue new head is old head next."""
+    old_head = new_queue._container.head.next_item
+    new_queue.dequeue()
+    assert new_queue._container.head == old_head
+
+
+def test_when_dequeue_then_dequeue_returns_data(new_queue):
+    """When I enqueue then dequeue from list return that data."""
+    new_queue.enqueue(1)
+    new_queue.enqueue(2)
+    new_queue.enqueue(3)
+    assert new_queue.dequeue() == 1
