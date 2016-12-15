@@ -12,9 +12,8 @@ class Node(object):
 
 
 class DoubleLinkedList(object):
-    """DoubleLinkedList class."""
+    """DoubleLinkedList class.
 
-    """
     push(val):
     will insert the value val at the head of the list.
     append(val):

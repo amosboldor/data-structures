@@ -11,9 +11,8 @@ class Node(object):
 
 
 class LinkedList(object):
-    """Class for head of Linked List."""
+    """Class for head of Linked List.
 
-    """
     push(val) will insert the value val at the head of the list
     pop() will pop the first value off the head of the list and return it.
     size() will return the length of the list

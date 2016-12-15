@@ -4,9 +4,8 @@ from linked_list import LinkedList
 
 
 class Stack(object):
-    """Stack object for creating a stack list."""
+    """Stack object for creating a stack list.
 
-    """
     push(value) - Adds a value to the stack.
     The parameter is the value to be added to the stack.
 
