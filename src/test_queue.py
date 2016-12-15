@@ -63,3 +63,21 @@ def test_when_dequeue_then_dequeue_returns_data(new_queue):
     new_queue.enqueue(2)
     new_queue.enqueue(3)
     assert new_queue.dequeue() == 5
+
+
+def test_peek_size(new_queue):
+    """When peek runs size should stay the same."""
+    list_size = new_queue._container.size
+    new_queue.peek()
+    assert new_queue._container.size == list_size
+
+
+def test_peek_returns_data_at_head(new_queue):
+    """When peek runs it returns the data at the head."""
+    assert new_queue.peek() == new_queue._container.head.data
+
+
+def test_peek_on_empty_queue_returns_none():
+    """When peek runs on an empty queue it returns None."""
+    from queue import Queue
+    assert Queue().peek() is None
