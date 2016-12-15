@@ -14,6 +14,7 @@ def new_queue():
 def test_queue_creates_list_with_a_size(new_queue):
     """Test creating a new Queue, creates a queue with size."""
     assert new_queue._container.size == 5
+    assert new_queue._size == 5
 
 
 def test_data_in_queue(new_queue):
@@ -24,7 +25,7 @@ def test_data_in_queue(new_queue):
 def test_when_enqueue_list_size_grows(new_queue):
     """When I enqueue, the size of the queue grows."""
     new_queue.enqueue(5)
-    assert new_queue._container.size == 6
+    assert new_queue._size == 6
 
 
 def test_when_append_new_tail_points_to_old_tail(new_queue):
@@ -46,7 +47,8 @@ def test_when_enqueue_old_tail_next_item_is_new_tail(new_queue):
 def test_when_pop_on_empty_list_raise_indexerr():
     """When I dequeue from empty queue, raise IndexError."""
     from queue import Queue
-    with pytest.raises(IndexError, message="Cannot remove a node from an empty list."):
+    with pytest.raises(IndexError,
+                       message="Cannot remove a node from an empty list."):
         Queue().dequeue()
 
 
@@ -67,9 +69,9 @@ def test_when_dequeue_then_dequeue_returns_data(new_queue):
 
 def test_peek_size(new_queue):
     """When peek runs size should stay the same."""
-    list_size = new_queue._container.size
+    list_size = new_queue._size
     new_queue.peek()
-    assert new_queue._container.size == list_size
+    assert new_queue._size == list_size
 
 
 def test_peek_returns_data_at_head(new_queue):
@@ -95,8 +97,8 @@ def test_size_full_queue(new_queue):
 
 
 def test_size_full_queue_after_dequeue(new_queue):
-    """Test that size of queue initialized with length of 5 dequeued twice and enqueued once is 4."""
-    new_queue.dequeued()
-    new_queue.dequeued()
-    new_queue.enqueued(3)
+    """Test size of queue of 5 dequeued twice and enqueued once is 4."""
+    new_queue.dequeue()
+    new_queue.dequeue()
+    new_queue.enqueue(3)
     assert new_queue.size() == 4
