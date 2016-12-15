@@ -46,7 +46,7 @@ def test_when_enqueue_old_tail_next_item_is_new_tail(new_queue):
 def test_when_pop_on_empty_list_raise_indexerr():
     """When I dequeue from empty queue, raise IndexError."""
     from queue import Queue
-    with pytest.raises(IndexError, message="Cannot pop from an empty list."):
+    with pytest.raises(IndexError, message="Cannot remove a node from an empty list."):
         Queue().dequeue()
 
 

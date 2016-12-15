@@ -123,7 +123,7 @@ def test_when_append_old_tail_next_item_is_new_tail(new_list):
 
 def test_when_pop_on_empty_list_raise_indexerr(new_list):
     """When I pop from empty list, raise IndexError."""
-    with pytest.raises(IndexError, message="Cannot pop from an empty list."):
+    with pytest.raises(IndexError, message="Cannot remove a node from an empty list."):
         new_list.pop()
 
 
