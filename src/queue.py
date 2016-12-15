@@ -30,3 +30,7 @@ class Queue():
     def dequeue(self):
         """Remove a value off the head of the queue."""
         return self._container.pop()
+
+    def peek(self):
+        """Return the next value in the queue."""
+        return self._container.head.data
