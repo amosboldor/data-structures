@@ -11,12 +11,11 @@ def new_queue():
     return a_queue
 
 
-def test_queue_creates_list_with_a_size():
+def test_queue_creates_list_with_a_size(new_queue):
     """Test creating a new Queue, creates a list with size."""
-    from queue import Queue
-    assert Queue([1, 2, 3, 4]).size == 4
+    assert new_queue._container.size == 5
 
 
-def test_data_in_queue():
+def test_data_in_queue(new_queue):
     """Test when creating a new queue, creates a list with data."""
     assert new_queue._container.head.data == 5
