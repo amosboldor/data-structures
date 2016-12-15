@@ -62,4 +62,4 @@ def test_when_dequeue_then_dequeue_returns_data(new_queue):
     new_queue.enqueue(1)
     new_queue.enqueue(2)
     new_queue.enqueue(3)
-    assert new_queue.dequeue() == 1
+    assert new_queue.dequeue() == 5

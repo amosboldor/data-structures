@@ -26,3 +26,7 @@ class Queue():
     def enqueue(self, val):
         """Add a value to the end of the queue."""
         return self._container.append(val)
+
+    def dequeue(self):
+        """Remove a value off the head of the queue."""
+        return self._container.pop()
