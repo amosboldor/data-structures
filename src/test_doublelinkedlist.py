@@ -40,8 +40,8 @@ def test_new_node_with_data_has_data():
     assert new_node.data == 5
 
 
-def test_new_node_with_next_has_next():
-    """A new node with data and next has next and data."""
+def test_new_nodes_have_next_and_prev():
+    """A new node with prev and next has next and previous."""
     from doublelinkedlist import Node
     node1 = Node(5)
     node3 = Node(1)
@@ -50,8 +50,8 @@ def test_new_node_with_next_has_next():
     assert node2.prev_item is node3
 
 
-def test_new_doublelist_has_no_head(new_list):
-    """A new double linked list is without a head."""
+def test_new_doublelist_has_no_head_and_no_tail(new_list):
+    """A new double linked list is without a head and tail."""
     assert new_list.head is None
     assert new_list.tail is None
 
@@ -63,7 +63,7 @@ def test_when_push_list_size_grows(new_list):
 
 
 def test_new_list_has_zero_size(new_list):
-    """When I make a new linked list its size is zero."""
+    """When I make a new double linked list its size is zero."""
     assert new_list.size == 0
 
 
@@ -84,15 +84,15 @@ def test_when_push_old_head_prev_item_is_new_head(new_list):
 
 
 @pytest.mark.parametrize("my_iter", ITER_TABLE)
-def test_when_initialize_with_iterable_makes_nodes(my_iter):
-    """When I pass an iterable on initialization I make nodes out of it."""
+def test_when_initialize_with_iterable_makes_list_of_iterable_length(my_iter):
+    """When I pass an iterable on initialization I make list of that size."""
     from doublelinkedlist import DoubleLinkedList
     dll = DoubleLinkedList(my_iter)
     assert dll.size == len(my_iter)
 
 
-def test_when_initialize_with_single_value_size_is_1():
-    """Test when double linked list is initialised it creates one node."""
+def test_when_initialize_with_single_value_size_is_1_and_head_is_tail():
+    """Test when double linked list is initialized it creates one node which is both head and tail."""
     from doublelinkedlist import DoubleLinkedList
     dll = DoubleLinkedList(1)
     assert dll.size == 1
@@ -127,8 +127,8 @@ def test_when_pop_on_empty_list_raise_indexerr(new_list):
         new_list.pop()
 
 
-def test_when_pop_returns_data(new_list):
-    """When I pop from list return that data."""
+def test_when_append_then_pop_returns_data(new_list):
+    """When I append then pop from list return that data."""
     new_list.append(1)
     new_list.append(2)
     new_list.append(3)
@@ -150,12 +150,12 @@ def test_when_shift_on_empty_list_raise_indexerr(new_list):
         new_list.shift()
 
 
-def test_when_shift_returns_data(new_list):
-    """When I shift from list return that data."""
-    new_list.append(1)
-    new_list.append(2)
-    new_list.append(3)
-    assert new_list.shift() == 3
+def test_after_push_then_shift_returns_data(new_list):
+    """When I push then shift from list return that data."""
+    new_list.push(1)
+    new_list.push(2)
+    new_list.push(3)
+    assert new_list.shift() == 1
 
 
 def test_when_shift_new_tail_is_old_tail_prev(new_list):
@@ -171,9 +171,9 @@ def test_when_shift_new_tail_is_old_tail_prev(new_list):
 def test_when_remove_item_in_middle_head_tail(remove):
     """Test if remove method removes middle node from linked list."""
     from doublelinkedlist import DoubleLinkedList
-    dll = DoubleLinkedList([1, 2, 3])
+    dll = DoubleLinkedList([1, 2, 4, 5, 6, 3])
     dll.remove(remove)
-    assert dll.size == 2
+    assert dll.size == 5
 
 
 def test_when_remove_does_not_find_val(new_list):
@@ -181,5 +181,5 @@ def test_when_remove_does_not_find_val(new_list):
     new_list.push(2)
     new_list.push(3)
     new_list.push(4)
-    with pytest.raises(ValueError, message="list.remove(x): x not in list."):
+    with pytest.raises(ValueError, message="list.remove(5): 5 not in list."):
         new_list.remove(5)
