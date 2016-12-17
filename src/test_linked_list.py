@@ -130,10 +130,10 @@ def test_display():
     """Test of display returns data from linked list."""
     from linked_list import LinkedList
     linked_list = LinkedList()
-    linked_list.push('1')
+    linked_list.push(1)
     linked_list.push('2')
-    linked_list.push('3')
-    assert linked_list.display() == '(3, 2, 1)'
+    linked_list.push(3)
+    assert linked_list.display() == (3, '2', 1)
 
 
 def test_when_pop_on_empty_list_raise_indexerr(new_list):
