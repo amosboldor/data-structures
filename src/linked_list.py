@@ -88,9 +88,9 @@ class LinkedList(object):
 
     def display(self):
         """Return a string of the linked list."""
-        return_tuple = '('
         curr = self.head
+        return_tuple = ()
         while curr:
-            return_tuple = return_tuple + str(curr.data) + ', '
+            return_tuple = return_tuple + (curr.data, )
             curr = curr.next_item
-        return return_tuple[:-2] + ')'
+        return return_tuple
