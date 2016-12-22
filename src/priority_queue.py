@@ -21,13 +21,14 @@ class PriorityQueue(object):
         self.prior_heap = Binheap()
         if isinstance(tuples, list):
             for tup in tuples:
-                self.insert(tup)
+                self.insert(tup[0], tup[1])
         elif tuples is not None:
             raise ValueError("PriorityQueue class must be instantiated with a list object.")
 
 
-    def insert(self, tup):
+    def insert(self, val, prior=0):
         """Adds a tuple to the priority queue with a default priority of 0."""
+        tup = val, prior
         self.tuples.append(tup)
         self.prior_heap.push(tup[1])
 
