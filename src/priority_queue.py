@@ -1,7 +1,7 @@
 """Implement a Priority Queue data type in python."""
 
 
-from bin_heap import BinHeap
+from binheap import Binheap
 
 
 class PriorityQueue(object):
@@ -18,7 +18,7 @@ class PriorityQueue(object):
     def __init__(self, tuples=None):
         """Creates an instance of a PriorityQueue object."""
         self.tuples = []
-        self.prior_heap = BinHeap()
+        self.prior_heap = Binheap()
         if isinstance(tuples, list):
             for tup in tuples:
                 self.insert(tup)
