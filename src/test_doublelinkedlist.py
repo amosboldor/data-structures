@@ -123,7 +123,7 @@ def test_when_append_old_tail_next_item_is_new_tail(new_list):
 
 def test_when_pop_on_empty_list_raise_indexerr(new_list):
     """When I pop from empty list, raise IndexError."""
-    with pytest.raises(IndexError, message="Cannot remove a node from an empty list."):
+    with pytest.raises(IndexError, message="Cannot pop from an empty list."):
         new_list.pop()
 
 
@@ -142,6 +142,15 @@ def test_when_pop_new_head_is_old_head_next(new_list):
     old_head = new_list.head.next_item
     new_list.pop()
     assert new_list.head == old_head
+
+
+def test_when_pop_on_a_list_of_one_size_zero_and_next_none(new_list):
+    """Pop from a list of one returns size zero and head and tail none."""
+    new_list.push(1)
+    new_list.pop()
+    assert new_list.size == 0
+    assert new_list.head is None
+    assert new_list.tail is None
 
 
 def test_when_shift_on_empty_list_raise_indexerr(new_list):
@@ -167,6 +176,15 @@ def test_when_shift_new_tail_is_old_tail_prev(new_list):
     assert new_list.tail == old_tail
 
 
+def test_when_shift_on_a_list_of_one_size_zero_and_next_none(new_list):
+    """Shift from a list of one returns size zero and head and tail none."""
+    new_list.push(1)
+    new_list.shift()
+    assert new_list.size == 0
+    assert new_list.head is None
+    assert new_list.tail is None
+
+
 @pytest.mark.parametrize("remove", REMOVE_TABLE)
 def test_when_remove_item_in_middle_head_tail(remove):
     """Test if remove method removes middle node from linked list."""
@@ -174,6 +192,14 @@ def test_when_remove_item_in_middle_head_tail(remove):
     dll = DoubleLinkedList([1, 2, 4, 5, 6, 3])
     dll.remove(remove)
     assert dll.size == 5
+
+
+def test_when_remove_item_in_list_of_one(new_list):
+    """Test is remove node from a list of one."""
+    new_list.push(1)
+    new_list.remove(1)
+    assert new_list.head is None
+    assert new_list.size == 0
 
 
 def test_when_remove_does_not_find_val(new_list):
