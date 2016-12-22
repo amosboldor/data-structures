@@ -102,3 +102,11 @@ def test_size_full_queue_after_dequeue(new_queue):
     new_queue.dequeue()
     new_queue.enqueue(3)
     assert new_queue.size() == 4
+
+
+def test_dequeue_on_queue_of_one():
+    """Test dequeue on queue of 1."""
+    from queue import Queue
+    queue = Queue(5)
+    queue.dequeue()
+    assert queue._size == 0
