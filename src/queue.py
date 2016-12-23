@@ -1,10 +1,10 @@
-"""mplementation of a queue list."""
+"""Implementation of a queue list."""
 
 
 from doublelinkedlist import DoubleLinkedList
 
 
-class Queue():
+class Queue(object):
     """Class for queue.
 
     enqueue(value): adds value to the queue
