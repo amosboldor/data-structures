@@ -77,6 +77,6 @@ class LinkedList(object):
         return_tuple = '('
         curr = self.head
         while curr:
-            return_tuple = return_tuple + str(curr.data) + ', '
+            return_tuple = return_tuple + curr.data + ', '
             curr = curr.next_item
         return return_tuple[:-2] + ')'
