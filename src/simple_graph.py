@@ -30,23 +30,29 @@ class Graph(object):
 
     def __init__(self):
         """Creates a new instance of a directional graph."""
-        pass
+        self._nodes = {}
 
     def nodes(self):
         """returns a list of all nodes in the graph."""
-        pass
+        return self._nodes.keys()
 
     def edges(self):
         """returns a list of all the edges in the graph."""
-        pass
+        edges = []
+        for key in self._nodes:
+            for node in self._nodes[key]:
+                edges.append(key, node)
+        return edges
 
     def add_node(self, node):
         """adds a new node to the graph."""
-        pass
+        self._nodes[node] = []
 
     def add_edge(self, node1, node2):
-        """adds an edge between two nodes, adding the nodes too if they don't exist."""
-        pass
+        """adds an edge from node1 to node2,
+        adding the nodes to the dictionary if they don't exist."""
+        self._nodes.setdefault(node1, []).append(node2)
+        self._nodes.setdefault(node2, [])
 
     def del_node(self, node):
         """deletes a node from the graph and all edges associated with that node."""
