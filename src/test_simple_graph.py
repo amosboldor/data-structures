@@ -27,6 +27,18 @@ def full_node_graph():
     return graph
 
 
+@pytest.fixture
+def full_edges_graph():
+    """Create a graph with nodes and edges."""
+    graph = full_node_graph()
+    graph.add_edge('A', 'B')
+    graph.add_edge('B', 'A')
+    graph.add_edge('A', 2)
+    graph.add_edge(3.5, 2)
+    graph.add_edge('Hello My Name is Bob', 'A')
+    return graph
+
+
 def test_empty_graph(empty_graph):
     """Test empty graph as empty dictionary."""
     assert len(empty_graph._nodes) == 0
@@ -72,3 +84,16 @@ def test_add_edge_method_on_full_node_graph_existing_node_reverse(full_node_grap
     """Test that add_edge on graph full of nodes one of the nodes exists."""
     full_node_graph.add_edge('S', 'A')
     assert full_node_graph._nodes['S'] == ['A'] and full_node_graph._nodes['A'] == []
+
+
+def test_edges_empty_graph(empty_graph):
+    """Test that edges() method on an empty graph returns an empty list."""
+    assert empty_graph.edges() == []
+
+
+def test_edges_full_graph(full_edges_graph):
+    """Test that edges() method on a graph with edges returns the proper list of edges."""
+    graph = full_edges_graph.edges()
+    for edge in range(len(graph)):
+        graph[edge] = str(graph[edge])
+    assert sorted(graph) == sorted(["('A', 'B')", "('B', 'A')", "('A', 2)", "(3.5, 2)", "('Hello My Name is Bob', 'A')"])
