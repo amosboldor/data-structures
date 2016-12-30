@@ -1,7 +1,7 @@
 """Implement a Priority Queue data type in python."""
 
 
-from binheap import Binheap
+from binheap2 import BinHeap
 
 
 class PriorityQueue(object):
@@ -18,7 +18,7 @@ class PriorityQueue(object):
     def __init__(self, tuples=None):
         """Creates an instance of a PriorityQueue object."""
         self.tuples = []
-        self.prior_heap = Binheap()
+        self.prior_heap = BinHeap()
         if isinstance(tuples, list):
             for tup in tuples:
                 self.insert(tup[0], tup[1])
@@ -36,6 +36,8 @@ class PriorityQueue(object):
     def pop(self):
         """removes the tuple with the highest priority from the queue and
         returns the value (at index 0)."""
+        if len(self.tuples) < 1:
+            raise IndexError("Cannot pop from an empty queue.")
         prior = self.prior_heap.pop()
         for tup in self.tuples:
             if tup[1] == prior:
@@ -45,7 +47,10 @@ class PriorityQueue(object):
 
     def peek(self):
         """returns the value of the tuple with the highest priority, but doesn't remove it."""
-        prior = self.prior_heap.pop()
-        for tup in self.tuples:
-            if tup[1] == prior:
-                return tup[0]
+        try:
+            prior = self.prior_heap._lst[0]
+            for tup in self.tuples:
+                if tup[1] == prior:
+                    return tup[0]
+        except IndexError:
+            return None
