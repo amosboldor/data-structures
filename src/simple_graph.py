@@ -51,12 +51,17 @@ class Graph(object):
     def add_edge(self, node1, node2):
         """adds an edge from node1 to node2,
         adding the nodes to the dictionary if they don't exist."""
-        self._nodes.setdefault(node1, []).append(node2)
+        self._nodes.setdefault(node1, [])
         self._nodes.setdefault(node2, [])
+        if node2 not in self._nodes[node1]:
+            self._nodes[node1].append(node2)
 
     def del_node(self, node):
         """deletes a node from the graph and all edges associated with that node."""
-        pass
+        del self._nodes[node]
+        for key in self._nodes:
+            if node in self._nodes[key]:
+                self._nodes[key].remove(node)
 
     def del_edge(self, node1, node2):
         """deltes an edge from the graph."""

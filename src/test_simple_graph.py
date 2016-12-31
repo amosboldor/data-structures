@@ -97,3 +97,34 @@ def test_edges_full_graph(full_edges_graph):
     for edge in range(len(graph)):
         graph[edge] = str(graph[edge])
     assert sorted(graph) == sorted(["('A', 'B')", "('B', 'A')", "('A', 2)", "(3.5, 2)", "('Hello My Name is Bob', 'A')"])
+
+
+def test_edges_duplicates(full_edges_graph):
+    """Tests that adding edges that already exist does not create duplicates."""
+    full_edges_graph.add_edge('A', 'B')
+    graph = full_edges_graph.edges()
+    for edge in range(len(graph)):
+        graph[edge] = str(graph[edge])
+    assert sorted(graph) == sorted(["('A', 'B')", "('B', 'A')", "('A', 2)", "(3.5, 2)", "('Hello My Name is Bob', 'A')"])
+
+
+
+def test_delete_node_empty(empty_graph):
+    """Tests that deleting a node from an empty graph throws an error."""
+    with pytest.raises(KeyError):
+        empty_graph.del_node('A')
+
+
+def test_delete_missing_node_full(full_node_graph):
+    """Tests that deleting a node that doesn't exist throws an error."""
+    with pytest.raises(KeyError):
+        full_node_graph.del_node('blargh')
+
+
+def test_delete_node_full(full_node_graph):
+    """Tests that deleting a node that exists from a graph removes the node."""
+    full_node_graph.del_node('A')
+    graph = full_node_graph.nodes()
+    for node in range(len(graph)):
+        graph[node] = str(graph[node])
+    assert sorted(graph) == ['2', '3.5', 'B', 'C', 'D', 'E', 'Hello My Name is Bob']
