@@ -74,8 +74,12 @@ class Graph(object):
     def neighbors(self, node):
         """returns the list of all nodes connected to specified node by edges,
         or raises an error if node doesn't exist."""
-        pass
+        return self._nodes[node]
 
     def adjacent(self, node1, node2):
         """returns True if there is exactly one degree of separation between two nodes."""
-        pass
+        if node2 not in self._nodes:
+            raise KeyError()
+        if node2 in self.neighbors(node1):
+            return True
+        return False

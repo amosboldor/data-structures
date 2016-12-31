@@ -164,3 +164,48 @@ def test_has_node_method_false(full_node_graph):
 def test_has_node_method_true(full_node_graph):
     """Test has_node method with existing node."""
     assert full_node_graph.has_node('A') is True
+
+
+def test_neighbors_empty(empty_graph):
+    """Tests that neighbors method on an empty graph throws a key error."""
+    with pytest.raises(KeyError):
+        empty_graph.neighbors('A')
+
+
+def test_neighbors_full_node_graph(full_node_graph):
+    """Tests that neighbors method on a node without edges returns an empty list."""
+    assert full_node_graph.neighbors('A') == []
+
+
+def test_neighbors_full_edges_graph(full_edges_graph):
+    """Tests that neighbors method on a node with edges returns the correct list of edges."""
+    assert full_edges_graph.neighbors('A') == ['B', 2]
+
+
+def test_adjacent_non_existant1(full_edges_graph):
+    """Tests that finding adjacent nodes on a non-existing node throws a key error."""
+    with pytest.raises(KeyError):
+        full_edges_graph.adjacent('Bob', 'B')
+
+
+def test_adjacent_non_existant2(full_node_graph):
+    """Tests that finding non-existing nodes adjacent to an existing node throws a key error."""
+    with pytest.raises(KeyError):
+        full_node_graph.adjacent('A', 'Dole')
+
+
+def test_adjacent_without_edges(full_edges_graph):
+    """Tests that finding existing nodes that aren't connected returns False."""
+    assert not full_edges_graph.adjacent('A', 'C')
+
+
+def test_adjacent_with_edges(full_edges_graph):
+    """Tests that finding existing nodes that are connected returns True."""
+    assert full_edges_graph.adjacent('A', 2)
+
+
+def test_adjacent_reverse(full_edges_graph):
+    """Tests that finding existing nodes that are connected in the opposite direction
+    (node2 points to node1) returns False."""
+    assert not full_edges_graph.adjacent(2, 'A')
+
