@@ -100,7 +100,7 @@ def test_edges_full_graph(full_edges_graph):
 
 
 def test_edges_duplicates(full_edges_graph):
-    """Tests that adding edges that already exist does not create duplicates."""
+    """Test that adding edges that already exist does not create duplicates."""
     full_edges_graph.add_edge('A', 'B')
     graph = full_edges_graph.edges()
     for edge in range(len(graph)):
@@ -108,23 +108,59 @@ def test_edges_duplicates(full_edges_graph):
     assert sorted(graph) == sorted(["('A', 'B')", "('B', 'A')", "('A', 2)", "(3.5, 2)", "('Hello My Name is Bob', 'A')"])
 
 
-
 def test_delete_node_empty(empty_graph):
-    """Tests that deleting a node from an empty graph throws an error."""
+    """Test that deleting a node from an empty graph throws an error."""
     with pytest.raises(KeyError):
         empty_graph.del_node('A')
 
 
 def test_delete_missing_node_full(full_node_graph):
-    """Tests that deleting a node that doesn't exist throws an error."""
+    """Test that deleting a node that doesn't exist throws an error."""
     with pytest.raises(KeyError):
         full_node_graph.del_node('blargh')
 
 
 def test_delete_node_full(full_node_graph):
-    """Tests that deleting a node that exists from a graph removes the node."""
+    """Test that deleting a node that exists from a graph removes the node."""
     full_node_graph.del_node('A')
     graph = full_node_graph.nodes()
     for node in range(len(graph)):
         graph[node] = str(graph[node])
     assert sorted(graph) == ['2', '3.5', 'B', 'C', 'D', 'E', 'Hello My Name is Bob']
+
+
+def test_delete_edge_method_on_empty(empty_graph):
+    """Test that deleting and edge on empty list raises error."""
+    with pytest.raises(KeyError):
+        empty_graph.del_edge(1, 2)
+
+
+def test_delete_edge_method_on_full_graph_on_non_existing_edge1(full_edges_graph):
+    """Test that deleting a non-existing edge on a full list raises error."""
+    with pytest.raises(ValueError):
+        full_edges_graph.del_edge("A", "Dole")
+
+
+def test_delete_edge_method_on_full_graph_on_non_existing_edge2(full_edges_graph):
+    """Test that deleting a non-existing edge on a full list raises error."""
+    with pytest.raises(KeyError):
+        full_edges_graph.del_edge("Bob", "Dole")
+
+
+def test_delete_edge_on_full_graph(full_edges_graph):
+    """Test that deleting an edge from an existing node."""
+    full_edges_graph.del_edge('A', 'B')
+    graph = full_edges_graph.edges()
+    for edge in range(len(graph)):
+        graph[edge] = str(graph[edge])
+    assert sorted(graph) == sorted(["('B', 'A')", "('A', 2)", "(3.5, 2)", "('Hello My Name is Bob', 'A')"])
+
+
+def test_has_node_method_false(full_node_graph):
+    """Test has_node method with non-existing node."""
+    assert full_node_graph.has_node('BOB') is False
+
+
+def test_has_node_method_true(full_node_graph):
+    """Test has_node method with existing node."""
+    assert full_node_graph.has_node('A') is True

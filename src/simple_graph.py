@@ -65,11 +65,11 @@ class Graph(object):
 
     def del_edge(self, node1, node2):
         """deltes an edge from the graph."""
-        pass
+        self._nodes[node1].remove(node2)
 
     def has_node(self, node):
         """returns True if specified node exists, and False if it doesn't."""
-        pass
+        return node in self._nodes
 
     def neighbors(self, node):
         """returns the list of all nodes connected to specified node by edges,
