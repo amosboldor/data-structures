@@ -248,3 +248,18 @@ def test_breadth_first_traversal(full_edges_graph):
     """Tests that depth_first_traversal function returns corret path of traversal."""
     assert full_edges_graph.breadth_first_traversal('C') == ['C', 'D', 'E', 2]
 
+
+def test_breadth_first_traversal_with_loops(full_edges_graph):
+    """Tests that breadth_first_traversal doesn't get caught in a loop."""
+    assert full_edges_graph.breadth_first_traversal('A') == ['A', 'B', 2]
+
+
+def test_breadth_first_traversal_with_bad_start(full_edges_graph):
+    """Tests that breadth_first_traversal throws an error if the start node isn't part of the graph."""
+    with pytest.raises(KeyError):
+        full_edges_graph.breadth_first_traversal("blargh")
+
+
+def test_breadth_first_traversal_with_isolated_node(full_node_graph):
+    """Tests that breadth_first_traversal returns a single node if start node is isolated."""
+    assert full_node_graph.breadth_first_traversal('A') == ['A']
