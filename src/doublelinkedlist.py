@@ -66,25 +66,33 @@ class DoubleLinkedList(object):
         if self.head is None:
             raise IndexError('Cannot pop from an empty list.')
         new_head = self.head.next_item
-        old_head = self.head.data
+        old_head_data = self.head.data
+        if new_head:
+            new_head.prev_item = None
         self.head = new_head
-        self.head.prev_item = None
         self.size -= 1
-        return old_head
+        if self.size < 1:
+            self.tail = None
+        return old_head_data
 
     def shift(self):
         """Take the first value off the tail of the list and return it."""
         if self.tail is None:
             raise IndexError('Cannot shift from an empty list.')
         new_tail = self.tail.prev_item
-        old_tail = self.tail.data
+        old_tail_data = self.tail.data
+        if new_tail:
+            self.tail.next_item = None
         self.tail = new_tail
-        self.tail.next_item = None
         self.size -= 1
-        return old_tail
+        if self.size < 1:
+            self.head = None
+        return old_tail_data
 
     def remove(self, val):
         """Remove a given val in the list."""
+        if not self.head:
+            raise AttributeError('Cannot remove from an empty list.')
         curr = self.head.data
         curr_node = self.head
         try:
@@ -97,12 +105,10 @@ class DoubleLinkedList(object):
         except AttributeError:
             raise ValueError('list.remove({0}): {0} not in list.'.format(val))
         if curr is self.head.data:
-            self.head = self.head.next_item
-            self.head.prev_item = None
+            self.pop()
         elif curr is self.tail.data:
-            self.tail = self.tail.prev_item
-            self.tail.next_item = None
+            self.shift()
         else:
             curr_node.prev_item.next_item = curr_node.next_item
             curr_node.next_item.prev_item = curr_node.prev_item
-        self.size -= 1
+            self.size -= 1
