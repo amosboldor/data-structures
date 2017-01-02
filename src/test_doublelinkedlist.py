@@ -209,3 +209,9 @@ def test_when_remove_does_not_find_val(new_list):
     new_list.push(4)
     with pytest.raises(ValueError, message="list.remove(5): 5 not in list."):
         new_list.remove(5)
+
+
+def test_remove_on_empty_list(new_list):
+    """Test error gets raised on an empty list."""
+    with pytest.raises(AttributeError):
+        new_list.remove(5)
