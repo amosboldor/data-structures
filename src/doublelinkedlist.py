@@ -91,6 +91,8 @@ class DoubleLinkedList(object):
 
     def remove(self, val):
         """Remove a given val in the list."""
+        if not self.head:
+            raise AttributeError('Cannot remove from an empty list.')
         curr = self.head.data
         curr_node = self.head
         try:
