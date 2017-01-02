@@ -84,10 +84,19 @@ class Graph(object):
             return True
         return False
 
-    def depth_first_traversal(self, start):
-        """returns a list containing the nodes of the graph in order of traversal."""
+    def depth_first_traversal(self, start, prev=None):
+        """returns a list containing the nodes of the graph in order of depth-first traversal."""
+        if prev is None:
+            prev = []
+        if start in prev:
+            return []
         lst = [start]
         nodes = self._nodes[start]
+        prev.append(start)
+        # import pdb; pdb.set_trace()
         for node in nodes:
-            lst.extend(self.depth_first_traversal(node))
+            lst.extend(self.depth_first_traversal(node, prev))
         return lst
+    
+    def breadth_first_traversal(self, parent):
+        """returns a list containing the nodes of the graph in order of breadth-first traversal."""
