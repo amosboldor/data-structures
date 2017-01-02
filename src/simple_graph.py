@@ -83,3 +83,11 @@ class Graph(object):
         if node2 in self.neighbors(node1):
             return True
         return False
+
+    def depth_first_traversal(self, start):
+        """returns a list containing the nodes of the graph in order of traversal."""
+        lst = [start]
+        nodes = self._nodes[start]
+        for node in nodes:
+            lst.extend(self.depth_first_traversal(node))
+        return lst

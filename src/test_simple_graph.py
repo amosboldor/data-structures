@@ -36,6 +36,9 @@ def full_edges_graph():
     graph.add_edge('A', 2)
     graph.add_edge(3.5, 2)
     graph.add_edge('Hello My Name is Bob', 'A')
+    graph.add_edge('C', 'D')
+    graph.add_edge('C', 'E')
+    graph.add_edge('D', 2)
     return graph
 
 
@@ -209,3 +212,7 @@ def test_adjacent_reverse(full_edges_graph):
     (node2 points to node1) returns False."""
     assert not full_edges_graph.adjacent(2, 'A')
 
+
+def test_depth_first_traversal(full_edges_graph):
+    """Tests that depth_firts_traversal function returns correct path of traversal."""
+    assert full_edges_graph.depth_first_traversal('C') == ['C', 'D', 2, 'E']
