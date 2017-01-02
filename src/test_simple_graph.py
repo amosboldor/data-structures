@@ -238,6 +238,13 @@ def test_depth_first_traversal_with_bad_start(full_edges_graph):
     with pytest.raises(KeyError):
         full_edges_graph.depth_first_traversal("blargh")
 
+
 def test_depth_first_traversal_with_isolated_node(full_node_graph):
     """Tests that depth_first_traversal returns a single node if start node is isolated."""
     assert full_node_graph.depth_first_traversal('A') == ['A']
+
+
+def test_breadth_first_traversal(full_edges_graph):
+    """Tests that depth_first_traversal function returns corret path of traversal."""
+    assert full_edges_graph.breadth_first_traversal('C') == ['C', 'D', 'E', 2]
+

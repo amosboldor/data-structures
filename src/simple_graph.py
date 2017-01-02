@@ -97,6 +97,20 @@ class Graph(object):
         for node in nodes:
             lst.extend(self.depth_first_traversal(node, prev))
         return lst
-    
-    def breadth_first_traversal(self, parent):
+
+    def breadth_first_traversal(self, parent, prev=None):
         """returns a list containing the nodes of the graph in order of breadth-first traversal."""
+        if prev is None:
+            prev = []
+        if not isinstance(parent, list):
+            prev.append(parent)
+            parent = [parent]
+        children = []
+        for item in parent:
+            for edge in self._nodes[item]:
+                if edge not in prev:
+                    children.append(edge)
+        prev.extend(children)
+        if len(children) == 0:
+            return prev
+        return self.breadth_first_traversal(children, prev)
