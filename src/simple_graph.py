@@ -99,7 +99,6 @@ class Graph(object):
         lst = [start]
         nodes = self._nodes[start]
         prev.append(start)
-        # import pdb; pdb.set_trace()
         for node in nodes:
             lst.extend(self.depth_first_traversal(node, prev))
         return lst
@@ -120,3 +119,56 @@ class Graph(object):
         if len(children) == 0:
             return prev
         return self.breadth_first_traversal(children, prev)
+
+
+if __name__ == "__main__":
+    import timeit
+    graph = Graph()
+    for i in range(4):
+        for ind in range(10 ** i, 10 ** (i + 1)):
+            graph.add_edge(ind // 10, ind)
+
+    other_graph = Graph()
+    for i in range(14):
+        for ind in range(2 ** i, 2 ** (i + 1)):
+            other_graph.add_edge(ind // 2, ind)
+
+    def time_depth_trav_bin():
+        return other_graph.depth_first_traversal(0)
+
+    def time_breadth_trav_bin():
+        return other_graph.breadth_first_traversal(0)
+
+    def time_depth_trav_dec():
+        return graph.depth_first_traversal(0)
+
+    def time_breadth_trav_dec():
+        return graph.breadth_first_traversal(0)
+
+    print("Depth First Binary", timeit.repeat(
+        stmt="time_depth_trav_bin()",
+        setup="from __main__ import time_depth_trav_bin, other_graph",
+        number=1,
+        repeat=3
+    ))
+
+    print("Breadth First Binary", timeit.repeat(
+        stmt="time_breadth_trav_bin()",
+        setup="from __main__ import time_breadth_trav_bin, other_graph",
+        number=1,
+        repeat=3
+    ))
+
+    print("Depth First Decimal", timeit.repeat(
+        stmt="time_depth_trav_dec()",
+        setup="from __main__ import time_depth_trav_dec, other_graph",
+        number=1,
+        repeat=3
+    ))
+
+    print("Breadth First Decimal", timeit.repeat(
+        stmt="time_breadth_trav_dec()",
+        setup="from __main__ import time_breadth_trav_dec, other_graph",
+        number=1,
+        repeat=3
+    ))
