@@ -26,6 +26,12 @@ class Graph(object):
 
     adjacent(node1, node2): returns True if there is an edge connecting node1 and node2,
     False if not, raises an error if either of the supplied nodes are not in graph
+
+    depth_first_traversal(start): creates a path of nodes that stem out from the start node,
+    completing each branch before continuing to the next.
+
+    breadth_first_traversal(start): creates a path of nodes that stem out from the start node,
+    traversing each branch at once.
     """
 
     def __init__(self):
