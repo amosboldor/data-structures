@@ -288,3 +288,21 @@ def test_breadth_first_traversal_with_bad_start(full_edges_graph):
 def test_breadth_first_traversal_with_isolated_node(full_node_graph):
     """Tests that breadth_first_traversal returns a single node if start node is isolated."""
     assert full_node_graph.breadth_first_traversal('A') == ['A']
+
+
+def test_explicit_weight(full_edges_graph):
+    """Test that add_edge with explicit weight create the correct tuple."""
+    full_edges_graph.add_edge('A', 'C', weight=5)
+    assert ('C', 5) in full_edges_graph._nodes['A']
+
+
+def test_replace_weight(full_edges_graph):
+    """Test that add_edge replaces an edge that already exist."""
+    full_edges_graph.add_edge('A', 'B', weight=5)
+    assert ('B', 5) in full_edges_graph._nodes['A']
+
+
+def test_empty_graph_weight(empty_graph):
+    """Test that add_edge with explicit weight create the correct tuple in empty graph."""
+    empty_graph.add_edge('A', 'C', weight=5)
+    assert ('C', 5) in empty_graph._nodes['A']
