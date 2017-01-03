@@ -74,29 +74,28 @@ def test_nodes_method_returns_list(full_node_graph):
         graph[node] = str(graph[node])
     assert sorted(graph) == ['2', '3.5', 'A', 'B', 'C', 'D', 'E', 'Hello My Name is Bob']
 
-
 def test_add_edge_method_on_empty_list(empty_graph):
     """Test that adding and edge on empty list creates the nodes and the edge."""
     empty_graph.add_edge('A', 'B')
-    assert empty_graph._nodes['A'] == ['B'] and empty_graph._nodes['B'] == []
+    assert empty_graph._nodes['A'] == [('B', 1)] and empty_graph._nodes['B'] == []
 
 
 def test_add_edge_method_on_full_node_graph(full_node_graph):
     """Test that add_edge on graph full of nodes."""
     full_node_graph.add_edge('B', 'C')
-    assert full_node_graph._nodes['B'] == ['C'] and full_node_graph._nodes['C'] == []
+    assert full_node_graph._nodes['B'] == [('C', 1)] and full_node_graph._nodes['C'] == []
 
 
 def test_add_edge_method_on_full_node_graph_existing_node(full_node_graph):
     """Test that add_edge on graph full of nodes one of the nodes exists."""
     full_node_graph.add_edge('A', 'S')
-    assert full_node_graph._nodes['A'] == ['S'] and full_node_graph._nodes['S'] == []
+    assert full_node_graph._nodes['A'] == [('S', 1)] and full_node_graph._nodes['S'] == []
 
 
 def test_add_edge_method_on_full_node_graph_existing_node_reverse(full_node_graph):
     """Test that add_edge on graph full of nodes one of the nodes exists."""
     full_node_graph.add_edge('S', 'A')
-    assert full_node_graph._nodes['S'] == ['A'] and full_node_graph._nodes['A'] == []
+    assert full_node_graph._nodes['S'] == [('A', 1)] and full_node_graph._nodes['A'] == []
 
 
 def test_edges_empty_graph(empty_graph):
@@ -110,14 +109,14 @@ def test_edges_full_graph(full_edges_graph):
     for ind in range(len(edges)):
         edges[ind] = str(edges[ind])
     assert sorted(edges) == sorted([
-        "('A', 'B')",
-        "('B', 'A')",
-        "('A', 2)",
-        "(3.5, 2)",
-        "('Hello My Name is Bob', 'A')",
-        "('C', 'D')",
-        "('C', 'E')",
-        "('D', 2)",
+        "('A', 'B', 1)",
+        "('B', 'A', 1)",
+        "('A', 2, 1)",
+        "(3.5, 2, 1)",
+        "('Hello My Name is Bob', 'A', 1)",
+        "('C', 'D', 1)",
+        "('C', 'E', 1)",
+        "('D', 2, 1)",
     ])
 
 
@@ -128,14 +127,14 @@ def test_edges_duplicates(full_edges_graph):
     for ind in range(len(edges)):
         edges[ind] = str(edges[ind])
     assert sorted(edges) == sorted([
-        "('A', 'B')",
-        "('B', 'A')",
-        "('A', 2)",
-        "(3.5, 2)",
-        "('Hello My Name is Bob', 'A')",
-        "('C', 'D')",
-        "('C', 'E')",
-        "('D', 2)",
+        "('A', 'B', 1)",
+        "('B', 'A', 1)",
+        "('A', 2, 1)",
+        "(3.5, 2, 1)",
+        "('Hello My Name is Bob', 'A', 1)",
+        "('C', 'D', 1)",
+        "('C', 'E', 1)",
+        "('D', 2, 1)",
     ])
 
 
@@ -180,18 +179,18 @@ def test_delete_edge_method_on_full_graph_on_non_existing_edge2(full_edges_graph
 
 def test_delete_edge_on_full_graph(full_edges_graph):
     """Test that deleting an edge from an existing node."""
-    full_edges_graph.del_edge('A', 'B')
+    full_edges_graph.del_edge('A', ('B', 1))
     edges = full_edges_graph.edges()
     for ind in range(len(edges)):
         edges[ind] = str(edges[ind])
     assert sorted(edges) == sorted([
-        "('B', 'A')",
-        "('A', 2)",
-        "(3.5, 2)",
-        "('Hello My Name is Bob', 'A')",
-        "('C', 'D')",
-        "('C', 'E')",
-        "('D', 2)",
+        "('B', 'A', 1)",
+        "('A', 2, 1)",
+        "(3.5, 2, 1)",
+        "('Hello My Name is Bob', 'A', 1)",
+        "('C', 'D', 1)",
+        "('C', 'E', 1)",
+        "('D', 2, 1)",
     ])
 
 
@@ -218,7 +217,7 @@ def test_neighbors_full_node_graph(full_node_graph):
 
 def test_neighbors_full_edges_graph(full_edges_graph):
     """Tests that neighbors method on a node with edges returns the correct list of edges."""
-    assert full_edges_graph.neighbors('A') == ['B', 2]
+    assert full_edges_graph.neighbors('A') == [('B', 1), (2, 1)]
 
 
 def test_adjacent_non_existant1(full_edges_graph):
@@ -251,12 +250,12 @@ def test_adjacent_reverse(full_edges_graph):
 
 def test_depth_first_traversal(full_edges_graph):
     """Tests that depth_first_traversal function returns correct path of traversal."""
-    assert full_edges_graph.depth_first_traversal('C') == ['C', 'D', 2, 'E']
+    assert full_edges_graph.depth_first_traversal(('C', 1)) == [('C', 1), ('D', 1), (2, 1), ('E', 1)]
 
 
 def test_depth_first_traversal_with_loops(full_edges_graph):
     """Tests that depth_first_traversal doesn't get caught in a loop."""
-    assert full_edges_graph.depth_first_traversal('A') == ['A', 'B', 2]
+    assert full_edges_graph.depth_first_traversal(('A', 1)) == [('A', 1), ('B', 1), (2, 1)]
 
 
 def test_depth_first_traversal_with_bad_start(full_edges_graph):
@@ -272,12 +271,12 @@ def test_depth_first_traversal_with_isolated_node(full_node_graph):
 
 def test_breadth_first_traversal(full_edges_graph):
     """Tests that depth_first_traversal function returns corret path of traversal."""
-    assert full_edges_graph.breadth_first_traversal('C') == ['C', 'D', 'E', 2]
+    assert full_edges_graph.breadth_first_traversal(('C', 1)) == [('C', 1), ('D', 1), ('E', 1), (2, 1)]
 
 
 def test_breadth_first_traversal_with_loops(full_edges_graph):
     """Tests that breadth_first_traversal doesn't get caught in a loop."""
-    assert full_edges_graph.breadth_first_traversal('A') == ['A', 'B', 2]
+    assert full_edges_graph.breadth_first_traversal(('A', 1)) == [('A', 1), ('B', 1), (2, 1)]
 
 
 def test_breadth_first_traversal_with_bad_start(full_edges_graph):

@@ -47,27 +47,30 @@ class Graph(object):
         edges = []
         for key in self._nodes:
             for node in self._nodes[key]:
-                edges.append((key, node))
+                edges.append((key, node[0], node[1]))
         return edges
 
     def add_node(self, node):
         """adds a new node to the graph."""
         self._nodes[node] = []
 
-    def add_edge(self, node1, node2):
+    def add_edge(self, node1, node2, weight=1):
         """adds an edge from node1 to node2,
         adding the nodes to the dictionary if they don't exist."""
         self._nodes.setdefault(node1, [])
         self._nodes.setdefault(node2, [])
-        if node2 not in self._nodes[node1]:
-            self._nodes[node1].append(node2)
+        for tup in self._nodes[node1]:
+            if node2 == tup[0]:
+                self._nodes[node1].remove(tup)
+        self._nodes[node1].append((node2, weight))
 
     def del_node(self, node):
         """deletes a node from the graph and all edges associated with that node."""
         del self._nodes[node]
         for key in self._nodes:
-            if node in self._nodes[key]:
-                self._nodes[key].remove(node)
+            for item in self._nodes[key]:
+                if node == self._nodes[item][0]:
+                    self._nodes[key].remove(item)
 
     def del_edge(self, node1, node2):
         """deltes an edge from the graph."""
@@ -84,10 +87,11 @@ class Graph(object):
 
     def adjacent(self, node1, node2):
         """returns True if there is exactly one degree of separation between two nodes."""
-        if node2 not in self._nodes:
+        if node1 not in self._nodes or node2 not in self._nodes:
             raise KeyError()
-        if node2 in self.neighbors(node1):
-            return True
+        for tup in self.neighbors(node1):
+            if tup[0] == node2:
+                return True
         return False
 
     def depth_first_traversal(self, start, prev=None):
@@ -97,7 +101,7 @@ class Graph(object):
         if start in prev:
             return []
         lst = [start]
-        nodes = self._nodes[start]
+        nodes = self._nodes[start[0]]
         prev.append(start)
         for node in nodes:
             lst.extend(self.depth_first_traversal(node, prev))
@@ -112,7 +116,7 @@ class Graph(object):
             parent = [parent]
         children = []
         for item in parent:
-            for edge in self._nodes[item]:
+            for edge in self._nodes[item[0]]:
                 if edge not in prev:
                     children.append(edge)
         prev.extend(children)
