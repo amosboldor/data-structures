@@ -104,21 +104,39 @@ def test_edges_empty_graph(empty_graph):
     assert empty_graph.edges() == []
 
 
-# def test_edges_full_graph(full_edges_graph):
-#     """Test that edges() method on a graph with edges returns the proper list of edges."""
-#     graph = full_edges_graph.edges()
-#     for edge in range(len(graph)):
-#         graph[edge] = str(graph[edge])
-#     assert sorted(graph) == sorted(["('A', 'B')", "('B', 'A')", "('A', 2)", "(3.5, 2)", "('Hello My Name is Bob', 'A')"])
+def test_edges_full_graph(full_edges_graph):
+    """Test that edges() method on a graph with edges returns the proper list of edges."""
+    edges = full_edges_graph.edges()
+    for ind in range(len(edges)):
+        edges[ind] = str(edges[ind])
+    assert sorted(edges) == sorted([
+        "('A', 'B')",
+        "('B', 'A')",
+        "('A', 2)",
+        "(3.5, 2)",
+        "('Hello My Name is Bob', 'A')",
+        "('C', 'D')",
+        "('C', 'E')",
+        "('D', 2)",
+    ])
 
 
-# def test_edges_duplicates(full_edges_graph):
-#     """Test that adding edges that already exist does not create duplicates."""
-#     full_edges_graph.add_edge('A', 'B')
-#     graph = full_edges_graph.edges()
-#     for edge in range(len(graph)):
-#         graph[edge] = str(graph[edge])
-#     assert sorted(graph) == sorted(["('A', 'B')", "('B', 'A')", "('A', 2)", "(3.5, 2)", "('Hello My Name is Bob', 'A')"])
+def test_edges_duplicates(full_edges_graph):
+    """Test that adding edges that already exist does not create duplicates."""
+    full_edges_graph.add_edge('A', 'B')
+    edges = full_edges_graph.edges()
+    for ind in range(len(edges)):
+        edges[ind] = str(edges[ind])
+    assert sorted(edges) == sorted([
+        "('A', 'B')",
+        "('B', 'A')",
+        "('A', 2)",
+        "(3.5, 2)",
+        "('Hello My Name is Bob', 'A')",
+        "('C', 'D')",
+        "('C', 'E')",
+        "('D', 2)",
+    ])
 
 
 def test_delete_node_empty(empty_graph):
@@ -160,13 +178,21 @@ def test_delete_edge_method_on_full_graph_on_non_existing_edge2(full_edges_graph
         full_edges_graph.del_edge("Bob", "Dole")
 
 
-# def test_delete_edge_on_full_graph(full_edges_graph):
-#     """Test that deleting an edge from an existing node."""
-#     full_edges_graph.del_edge('A', 'B')
-#     graph = full_edges_graph.edges()
-#     for edge in range(len(graph)):
-#         graph[edge] = str(graph[edge])
-#     assert sorted(graph) == sorted(["('B', 'A')", "('A', 2)", "(3.5, 2)", "('Hello My Name is Bob', 'A')"])
+def test_delete_edge_on_full_graph(full_edges_graph):
+    """Test that deleting an edge from an existing node."""
+    full_edges_graph.del_edge('A', 'B')
+    edges = full_edges_graph.edges()
+    for ind in range(len(edges)):
+        edges[ind] = str(edges[ind])
+    assert sorted(edges) == sorted([
+        "('B', 'A')",
+        "('A', 2)",
+        "(3.5, 2)",
+        "('Hello My Name is Bob', 'A')",
+        "('C', 'D')",
+        "('C', 'E')",
+        "('D', 2)",
+    ])
 
 
 def test_has_node_method_false(full_node_graph):
