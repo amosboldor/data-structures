@@ -124,6 +124,10 @@ class Graph(object):
             return prev
         return self.breadth_first_traversal(children, prev)
 
+    def dijkstra_algorithm(self, node1, node2):
+        """Find the shortest path between two nodes."""
+
+
 
 if __name__ == "__main__":
     import timeit
