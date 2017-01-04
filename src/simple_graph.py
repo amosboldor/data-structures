@@ -124,8 +124,28 @@ class Graph(object):
             return prev
         return self.breadth_first_traversal(children, prev)
 
-    def dijkstra_algorithm(self, node1, node2):
+    def dijkstra_algorithm(self, graph, start, finish):
         """Find the shortest path between two nodes."""
+        nodes = {}
+        for node in graph._nodes:
+            nodes[node] = [False, False]
+        cur = start
+        while cur is not finish:
+            for each in graph._nodes[cur]:
+                if nodes[each[0]][0] == False or nodes[each[0]][0] > each[1] + nodes[cur][0]:
+                    nodes[each[0]] = [each[1], cur]
+            cur = min(nodes, key=nodes.get)
+            del nodes[cur]
+        path = [cur]
+        prev = nodes[cur][1]
+        while prev is not start:
+            prev = nodes[prev][1]
+            path.append(prev)
+        path.append(start)
+        return nodes[cur].extend(path)
+
+
+
 
 
 
