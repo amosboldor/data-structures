@@ -309,4 +309,4 @@ def test_empty_graph_weight(empty_graph):
 
 
 def test_dijkstra_algorithm(full_edges_graph):
-    assert full_edges_graph.dijkstra_algorithm('A', 'B') == [1, ['B', 'A']]
+    assert full_edges_graph.dijkstra_algorithm('A', 'B') == [1, ['A', 'B']]

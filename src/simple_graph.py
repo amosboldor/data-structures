@@ -125,47 +125,46 @@ class Graph(object):
         return self.breadth_first_traversal(children, prev)
 
     def dijkstra_algorithm(self, start, dest):
-        """Find the shortest path between two nodes."""
-        unvisited = [each[0] for each in self.depth_first_traversal(start)]
-        if dest not in unvisited:
-            raise ValueError
-        distance_paths = {i: [None, [None]] for i in unvisited}
-        distance_paths[start] = [0, [start]]
-        current_node = start
-        while True:
-            if current_node == dest:
-                return distance_paths[dest]
-            for item in self.neighbors(start):
-                previous_weight = (distance_paths[current_node])[0]
-                # import pdb; pdb.set_trace()
-                already_weight = (distance_paths[item[0]])[0]
-                try:
-                    potential_weight = item[1] + previous_weight
-                except TypeError:
-                    potential_weight = item[1]
-                
-                # if (distance_paths[item[0]])[0] is None or potential_weight < already_weight:
-                #     (distance_paths[item[0]])[0] = item + previous_weight
+            """Find the shortest path between two nodes."""
+            unvisited = [each[0] for each in self.depth_first_traversal(start)]
+            # import pdb; pdb.set_trace()
+            if dest not in unvisited:
+                raise ValueError("No path from start node to destination node.")
 
-                if item[0] not in unvisited:
-                    continue
-                elif potential_weight is None or potential_weight < already_weight:
-                    current_node_path = (distance_paths[current_node])[1][:]
-                    current_node_path.append(item[0])
-                    (distance_paths[item[0]])[0] = item[1] + previous_weight
-                    (distance_paths[item[0]])[0] = current_node_path
-                    continue
-            unvisited.remove(current_node)
-            next_node = None
-            for key, value in distance_paths.items():
-                if key in unvisited:
-                    if next_node is None:
-                        next_node = key
+            distance_paths = {i: [None, [None]] for i in unvisited}
+            distance_paths[start] = [0, [start]]
+            current_node = start
+
+            while True:
+                for item in self.neighbors(current_node):
+                    study_node = item[0]
+                    current_node_distance = (distance_paths[current_node])[0]
+                    potential_distance = item[1] + current_node_distance
+                    original_distance = (distance_paths[study_node])[0]
+
+                    if study_node not in unvisited:
                         continue
-                    elif (distance_paths[key])[0]:
-                        if (distance_paths[key])[0] < (distance_paths[next_node])[0]:
+                    elif original_distance is None or potential_distance < original_distance:
+                        current_node_path = (distance_paths[current_node])[1][:]
+                        current_node_path.append(item[0])
+                        (distance_paths[item[0]])[0] = item[1] + current_node_distance
+                        (distance_paths[item[0]])[1] = current_node_path
+                        continue
+
+                if current_node == dest:
+                    return distance_paths[dest]
+                unvisited.remove(current_node)
+                next_node = None
+                for key, value in distance_paths.items():
+                    if key in unvisited:
+                        if next_node is None:
                             next_node = key
-            current_node = next_node
+                            continue
+                        elif (distance_paths[key])[0]:
+                            if (distance_paths[key])[0] < (distance_paths[next_node])[0]:
+                                next_node = key
+
+                current_node = next_node
 
 if __name__ == "__main__":
     import timeit
