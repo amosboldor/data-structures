@@ -126,15 +126,15 @@ class Graph(object):
 
     def dijkstra_algorithm(self, start, dest):
         """Find the shortest path between two nodes."""
-        unvisited = self.depth_first_traversal(start)
+        # unvisited = self.depth_first_traversal(start)
+        # linked = False
+        unvisited = [each[0] for each in self.depth_first_traversal(start)]
+            # if each[0] == dest:
+            #     linked = True
+            #     break
+        # if not linked:
         # import pdb; pdb.set_trace()
-        linked = False
-        included = False
-        for each in unvisited:
-            if each[0] == dest:
-                linked = True
-                break
-        if not linked:
+        if dest not in unvisited:
             raise ValueError
         # import pdb; pdb.set_trace()
         distance_paths = {i: None for i in unvisited}
@@ -145,6 +145,7 @@ class Graph(object):
                 return distance_paths[dest]
             for item in self.neighbors(start):
                 previous_weight = distance_paths[current_node][0]
+                import pdb; pdb.set_trace()
                 already_weight = distance_paths[item[0]][0]
                 potential_weight = item + previous_weight
                 if distance_paths[item[0]][0] is None or potential_weight < already_weight:
