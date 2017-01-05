@@ -124,25 +124,31 @@ class Graph(object):
             return prev
         return self.breadth_first_traversal(children, prev)
 
-    def dijkstra_algorithm(self, graph, start, finish):
+    def dijkstra_algorithm(self, start, dest):
         """Find the shortest path between two nodes."""
-        nodes = {}
-        for node in graph._nodes:
-            nodes[node] = [False, False]
-        cur = start
-        while cur is not finish:
-            for each in graph._nodes[cur]:
-                if nodes[each[0]][0] == False or nodes[each[0]][0] > each[1] + nodes[cur][0]:
-                    nodes[each[0]] = [each[1], cur]
-            cur = min(nodes, key=nodes.get)
-            del nodes[cur]
-        path = [cur]
-        prev = nodes[cur][1]
-        while prev is not start:
-            prev = nodes[prev][1]
-            path.append(prev)
-        path.append(start)
-        return nodes[cur].extend(path)
+        unvisited = self.depth_first_traversal(start)
+        # import pdb; pdb.set_trace()
+        linked = False
+        included = False
+        for each in unvisited:
+            if each[0] == dest:
+                linked = True
+                break
+        if not linked:
+            raise ValueError
+        # import pdb; pdb.set_trace()
+        distance_paths = {i: None for i in unvisited}
+        distance_paths[start] = [0, start]
+        current_node = start
+        while True:
+            if current_node == dest:
+                return distance_paths[dest]
+            for item in self.neighbors(start):
+                previous_weight = distance_paths[current_node][0]
+                already_weight = distance_paths[item[0]][0]
+                potential_weight = item + previous_weight
+                if distance_paths[item[0]][0] is None or potential_weight < already_weight:
+                    distance_paths[item[0]][0] = item + previous_weight
 
 
 

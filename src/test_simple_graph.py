@@ -306,3 +306,7 @@ def test_empty_graph_weight(empty_graph):
     """Test that add_edge with explicit weight create the correct tuple in empty graph."""
     empty_graph.add_edge('A', 'C', weight=5)
     assert ('C', 5) in empty_graph._nodes['A']
+
+
+def test_dijkstra_algorithm(full_edges_graph):
+    assert full_edges_graph.dijkstra_algorithm('A', 'B') == [1, ['B', 'A']]
