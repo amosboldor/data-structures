@@ -308,5 +308,57 @@ def test_empty_graph_weight(empty_graph):
     assert ('C', 5) in empty_graph._nodes['A']
 
 
+@pytest.fixture
+def full_node_graph_more():
+    """Create a graph with nodes but no edges."""
+    from simple_graph import Graph
+    graph = Graph()
+    graph.add_edge('A', 'B')
+    graph.add_edge('B', 'C')
+    graph.add_edge('B', 'S')
+    graph.add_edge('B', 'G')
+    graph.add_edge('B', 'H')
+    graph.add_edge('B', 'D')
+    return graph
+
+
 def test_dijkstra_algorithm(full_edges_graph):
+    """Test dijkstra_algorithm on one edge."""
     assert full_edges_graph.dijkstra_algorithm('A', 'B') == [1, ['A', 'B']]
+
+
+def test_dijkstra_algorithm_on_two_edges(full_node_graph_more):
+    """Test dijkstra_algorithm on two edges (A has only one edge)."""
+    assert full_node_graph_more.dijkstra_algorithm('A', 'D') == [2, ['A', 'B', 'D']]
+
+
+def test_dijkstra_algorithm_on_two_edges_more(full_node_graph_more):
+    """Test dijkstra_algorithm on two edges (A has two edge)."""
+    full_node_graph_more.add_edge('A', 'D')
+    assert full_node_graph_more.dijkstra_algorithm('A', 'D') == [1, ['A', 'D']]
+
+
+def test_dijkstra_algorithm_on_complex_graph(full_node_graph_more):
+    """Test dijkstra algorithm on more complex graph."""
+    full_node_graph_more.add_edge('A', 'D')
+    full_node_graph_more.add_edge('A', 'G')
+    full_node_graph_more.add_edge('A', 'H')
+    assert full_node_graph_more.dijkstra_algorithm('A', 'D') == [1, ['A', 'D']]
+
+
+def test_dijkstra_algorithm_on_complex_graph_weights(full_node_graph_more):
+    """Test dijkstra algorithm on more complex graph with weights."""
+    full_node_graph_more.add_edge('A', 'Y', weight=5)
+    full_node_graph_more.add_edge('Y', 'U', weight=3)
+    full_node_graph_more.add_edge('A', 'L')
+    full_node_graph_more.add_edge('L', 'U')
+    assert full_node_graph_more.dijkstra_algorithm('A', 'U') == [2, ['A', 'L', 'U']]
+
+
+def test_dijkstra_algorithm_on_complex_graph_weights_two_paths(full_node_graph_more):
+    """Test dijkstra algorithm on more complex graph with two path with diffrent weights."""
+    full_node_graph_more.add_edge('A', 'Y', weight=5)
+    full_node_graph_more.add_edge('Y', 'U', weight=3)
+    full_node_graph_more.add_edge('A', 'L', weight=5)
+    full_node_graph_more.add_edge('L', 'U', weight=5)
+    assert full_node_graph_more.dijkstra_algorithm('A', 'U') == [8, ['A', 'Y', 'U']]
