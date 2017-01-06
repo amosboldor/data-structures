@@ -127,7 +127,6 @@ class Graph(object):
     def dijkstra_algorithm(self, start, dest):
             """Find the shortest path between two nodes."""
             unvisited = [each[0] for each in self.depth_first_traversal(start)]
-            # import pdb; pdb.set_trace()
             if dest not in unvisited:
                 raise ValueError("No path from start node to destination node.")
 
