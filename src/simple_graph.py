@@ -69,7 +69,7 @@ class Graph(object):
         del self._nodes[node]
         for key in self._nodes:
             for item in self._nodes[key]:
-                if node == self._nodes[item][0]:
+                if node == item[0]:
                     self._nodes[key].remove(item)
 
     def del_edge(self, node1, node2):
