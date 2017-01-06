@@ -74,7 +74,13 @@ class Graph(object):
 
     def del_edge(self, node1, node2):
         """deltes an edge from the graph."""
-        self._nodes[node1].remove(node2)
+        deleted = False
+        for node in self._nodes[node1]:
+            if node2 == node[0]:
+                deleted = True
+                self._nodes[node1].remove(node)
+        if not deleted:
+            raise ValueError
 
     def has_node(self, node):
         """returns True if specified node exists, and False if it doesn't."""

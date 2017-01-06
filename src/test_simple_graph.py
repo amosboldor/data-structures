@@ -74,6 +74,7 @@ def test_nodes_method_returns_list(full_node_graph):
         graph[node] = str(graph[node])
     assert sorted(graph) == ['2', '3.5', 'A', 'B', 'C', 'D', 'E', 'Hello My Name is Bob']
 
+
 def test_add_edge_method_on_empty_list(empty_graph):
     """Test that adding and edge on empty list creates the nodes and the edge."""
     empty_graph.add_edge('A', 'B')
@@ -150,15 +151,6 @@ def test_delete_missing_node_full(full_node_graph):
         full_node_graph.del_node('blargh')
 
 
-def test_delete_node_full(full_node_graph):
-    """Test that deleting a node that exists from a graph removes the node."""
-    full_node_graph.del_node('A')
-    graph = full_node_graph.nodes()
-    for node in range(len(graph)):
-        graph[node] = str(graph[node])
-    assert sorted(graph) == ['2', '3.5', 'B', 'C', 'D', 'E', 'Hello My Name is Bob']
-
-
 def test_del_node_multiple_instances():
     """Test del_node on a node that has other nodes pointing to it."""
     from simple_graph import Graph
@@ -192,21 +184,18 @@ def test_delete_edge_method_on_full_graph_on_non_existing_edge2(full_edges_graph
         full_edges_graph.del_edge("Bob", "Dole")
 
 
-def test_delete_edge_on_full_graph(full_edges_graph):
-    """Test that deleting an edge from an existing node."""
-    full_edges_graph.del_edge('A', ('B', 1))
-    edges = full_edges_graph.edges()
-    for ind in range(len(edges)):
-        edges[ind] = str(edges[ind])
-    assert sorted(edges) == sorted([
-        "('B', 'A', 1)",
-        "('A', 2, 1)",
-        "(3.5, 2, 1)",
-        "('Hello My Name is Bob', 'A', 1)",
-        "('C', 'D', 1)",
-        "('C', 'E', 1)",
-        "('D', 2, 1)",
-    ])
+def test_del_edge_on_full_graph(full_edges_graph):
+    """Test del_edge on a full graph."""
+    full_edges_graph.del_edge('A', 'B')
+    full_edges_graph.del_edge('C', 'E')
+    assert full_edges_graph._nodes == {2: [],
+                                       3.5: [(2, 1)],
+                                       'A': [(2, 1)],
+                                       'B': [('A', 1)],
+                                       'C': [('D', 1)],
+                                       'D': [(2, 1)],
+                                       'E': [],
+                                       'Hello My Name is Bob': [('A', 1)]}
 
 
 def test_has_node_method_false(full_node_graph):
