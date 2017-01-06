@@ -59,9 +59,9 @@ class Graph(object):
         adding the nodes to the dictionary if they don't exist."""
         self._nodes.setdefault(node1, [])
         self._nodes.setdefault(node2, [])
-        for tup in self._nodes[node1]:
-            if node2 == tup[0]:
-                self._nodes[node1].remove(tup)
+        for node_and_weight in self._nodes[node1]:
+            if node2 == node_and_weight[0]:
+                self._nodes[node1].remove(node_and_weight)
         self._nodes[node1].append((node2, weight))
 
     def del_node(self, node):
@@ -95,8 +95,8 @@ class Graph(object):
         """returns True if there is exactly one degree of separation between two nodes."""
         if node1 not in self._nodes or node2 not in self._nodes:
             raise KeyError()
-        for tup in self.neighbors(node1):
-            if tup[0] == node2:
+        for node_and_weight in self.neighbors(node1):
+            if node_and_weight[0] == node2:
                 return True
         return False
 
