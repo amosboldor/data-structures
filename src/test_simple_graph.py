@@ -159,6 +159,21 @@ def test_delete_node_full(full_node_graph):
     assert sorted(graph) == ['2', '3.5', 'B', 'C', 'D', 'E', 'Hello My Name is Bob']
 
 
+def test_del_node_multiple_instances():
+    """Test del_node on a node that has other nodes pointing to it."""
+    from simple_graph import Graph
+    graph = Graph()
+    graph.add_edge("A", "B")
+    graph.add_edge("B", "A")
+    graph.add_edge("B", "C")
+    graph.add_edge("B", "D")
+    graph.add_edge("C", "A")
+    graph.add_edge("J", "A")
+    graph.add_edge("I", "A")
+    graph.del_node('A')
+    assert graph._nodes == {'B': [('C', 1), ('D', 1)], 'C': [], 'D': [], 'I': [], 'J': []}
+
+
 def test_delete_edge_method_on_empty(empty_graph):
     """Test that deleting and edge on empty list raises error."""
     with pytest.raises(KeyError):
