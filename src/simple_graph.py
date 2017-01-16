@@ -125,6 +125,7 @@ class Graph(object):
         return self.breadth_first_traversal(children, prev)
 
     def dijkstra_algorithm(self, start, dest):
+# <<<<<<< HEAD
         """Find the shortest path between two nodes."""
         unvisited = [each[0] for each in self.depth_first_traversal(start)]
         if dest not in unvisited:
@@ -157,6 +158,25 @@ class Graph(object):
                 if key in unvisited:
                     if next_node is None:
                         next_node = key
+# =======
+#             """Find the shortest path between two nodes."""
+#             unvisited = [each[0] for each in self.depth_first_traversal(start)]
+#             if dest not in unvisited:
+#                 raise ValueError("No path from start node to destination node.")
+
+#             distance_paths = {i: [None, [None]] for i in unvisited}
+#             distance_paths[start] = [0, [start]]
+#             current_node = start
+
+#             while True:
+#                 for item in self.neighbors(current_node):
+#                     study_node = item[0]
+#                     current_node_distance = (distance_paths[current_node])[0]
+#                     potential_distance = item[1] + current_node_distance
+#                     original_distance = (distance_paths[study_node])[0]
+
+#                     if study_node not in unvisited:
+# >>>>>>> 1aaed6d824cf24d478bbb28c8e85517daebfd6c2
                         continue
                     elif (distance_paths[key])[0]:
                         if (distance_paths[key])[0] < (distance_paths[next_node])[0]:
