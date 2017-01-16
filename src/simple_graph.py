@@ -125,46 +125,58 @@ class Graph(object):
         return self.breadth_first_traversal(children, prev)
 
     def dijkstra_algorithm(self, start, dest):
-            """Find the shortest path between two nodes."""
-            unvisited = [each[0] for each in self.depth_first_traversal(start)]
-            # import pdb; pdb.set_trace()
-            if dest not in unvisited:
-                raise ValueError("No path from start node to destination node.")
+        """Find the shortest path between two nodes."""
+        unvisited = [each[0] for each in self.depth_first_traversal(start)]
+        if dest not in unvisited:
+            raise ValueError("No path from start node to destination node.")
+        distance_paths = {i: [None, [None]] for i in unvisited}
+        distance_paths[start] = [0, [start]]
+        current_node = start
 
-            distance_paths = {i: [None, [None]] for i in unvisited}
-            distance_paths[start] = [0, [start]]
-            current_node = start
+        while True:
+            for neighbor in self.neighbors(current_node):
+                study_node = neighbor[0]
+                current_node_distance = (distance_paths[current_node])[0]
+                potential_distance = neighbor[1] + current_node_distance
+                original_distance = (distance_paths[study_node])[0]
 
-            while True:
-                for item in self.neighbors(current_node):
-                    study_node = item[0]
-                    current_node_distance = (distance_paths[current_node])[0]
-                    potential_distance = item[1] + current_node_distance
-                    original_distance = (distance_paths[study_node])[0]
+                if study_node not in unvisited:
+                    continue
+                elif original_distance is None or potential_distance < original_distance:
+                    current_node_path = (distance_paths[current_node])[1][:]
+                    current_node_path.append(neighbor[0])
+                    (distance_paths[neighbor[0]])[0] = neighbor[1] + current_node_distance
+                    (distance_paths[neighbor[0]])[1] = current_node_path
+                    continue
 
-                    if study_node not in unvisited:
+            if current_node == dest:
+                return distance_paths[dest]
+            unvisited.remove(current_node)
+            next_node = None
+            for key, value in distance_paths.items():
+                if key in unvisited:
+                    if next_node is None:
+                        next_node = key
                         continue
-                    elif original_distance is None or potential_distance < original_distance:
-                        current_node_path = (distance_paths[current_node])[1][:]
-                        current_node_path.append(item[0])
-                        (distance_paths[item[0]])[0] = item[1] + current_node_distance
-                        (distance_paths[item[0]])[1] = current_node_path
-                        continue
-
-                if current_node == dest:
-                    return distance_paths[dest]
-                unvisited.remove(current_node)
-                next_node = None
-                for key, value in distance_paths.items():
-                    if key in unvisited:
-                        if next_node is None:
+                    elif (distance_paths[key])[0]:
+                        if (distance_paths[key])[0] < (distance_paths[next_node])[0]:
                             next_node = key
-                            continue
-                        elif (distance_paths[key])[0]:
-                            if (distance_paths[key])[0] < (distance_paths[next_node])[0]:
-                                next_node = key
 
-                current_node = next_node
+            current_node = next_node
+    
+    def bellman_ford(self, start, dest):
+        """Find the shortest path between two nodes and raise an error if any of the edges have negative weights."""
+        unvisited = [each[0] for each in self.depth_first_traversal(start)]
+        if dest not in unvisited:
+            raise ValueError("No path from start node to destination node.")
+        distance_paths = {i: [None, [None]] for i in unvisited}
+        distance_paths[start] = [0, [start]]
+        current_node = start
+
+        # for node in self.nodes: # n1
+        #     for edge in self.edges: # a, b, weight
+        #         if edge[2] + 
+
 
 if __name__ == "__main__":
     import timeit
